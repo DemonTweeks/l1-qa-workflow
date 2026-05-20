@@ -1,0 +1,220 @@
+---
+name: l1-qa-workflow
+description: Orchestrate a Quality Review of an L1 Self-Check report for the ZTE CelcomDigi Microwave project, with annotated image feedback for failed items.
+---
+
+# L1 Self-Check Report QA Review Workflow v2
+
+You are orchestrating a Quality Review of an L1 Self-Check report for the ZTE CelcomDigi Microwave project.
+Failed items get annotated images posted directly to the conversation with explanations.
+
+## Input
+The user uploads a Self-Check report (PDF) to the workspace.
+
+## Workflow Steps
+
+### Step 1: Parse the PDF (direct tool call)
+
+```
+parse_pdf(workspace_filename="<filename>", extract_images=true, build_composites=false)
+```
+
+The result gives you:
+- `sections[]` — each has: `number`, `title`, `page`, `image_count`, `images[]` (filenames)
+- `pages[]` — `pages[0].text` is the header page
+
+**Note: composites are NOT built during parsing. Sub-agents build their own composites as needed.**
+
+**Save the parse_pdf result — you will use it for all subsequent steps.**
+
+### Step 2: Build QA items from parse_pdf result (you do this — NO run_python needed)
+
+From the sections array, match to Before/After pairs and NMS groups:
+
+**Before/After pairs** (compare installation quality):
+- Near End: 2.1/2.2 (IDU), 2.3/2.4 (IDU Power), 2.5/2.6 (IDU Grounding), 2.7/2.8 (IF Cable), 2.9/2.10 (FE Cable), 2.11/2.12 (MW/ODU)
+- Far End: 3.2/3.3 (IDU), 3.4/3.5 (IDU Power), 3.6/3.7 (IDU Grounding), 3.8/3.9 (IF Cable), 3.10/3.11 (FE Cable), 3.12/3.13 (MW/ODU)
+
+**NMS sections** (screenshot verification):
+- Near End: 2.14 (Topology), 2.15 (Slot Layout), 2.16 (General Alarm), 2.17 (Link Budget), 2.18 (RSL), 2.19-2.22 (Link Performance)
+- Far End: 3.15-3.22 (same structure)
+
+**Standalone after-only sections**: 2.13 (ODU Grounding), 3.14 (ODU Grounding)
+
+For each pair/group, note: section numbers, image filenames.
+Also note which sections are missing (no images = missing section).
+
+### Step 3: Header Validation + Site ID Validation (spawn_agent)
+
+**IMPORTANT: Include the full header text from pages[0].text in the task description
+so the sub-agent can validate all fields without needing file access.**
+
+The sub-agent checks:
+- Scope of Work (must be specific, e.g. Microwave Swap)
+- Dates logical sequence: Construction Date <= Self-check Date <= QA Check Date
+- Subcon Company & Responsible Person mentioned
+- Actual work description (IDU / ODU / Antenna / IF Cable)
+- Site ID validation against iEPMS for Project code "P202211283695_D002" using `fishbone__validate_project` and `fishbone__get_du_list`
+- Compare site name and region to report data
+
+```
+spawn_agent(
+    task="Header validation for L1 report.
+         Header text:
+         <paste pages[0].text here>
+
+         Validate: scope specificity, date logic, subcon/responsible person,
+         and site ID against iEPMS project P202211283695_D002.",
+    tools=["fishbone__validate_project", "fishbone__get_du_list"]
+)
+```
+
+### Step 4: Visual QA — Before/After Sections (spawn_agent, PARALLEL)
+
+For each B/A pair that has images, spawn a sub-agent with `skill="visual_qa_before_after"`.
+**Call multiple spawn_agent in one response for parallelism.**
+
+Pass the individual image filenames (not composites) — the sub-agent builds its own composites internally.
+
+```
+spawn_agent(
+    task="QA: <pair name> (sections <before>/<after>).
+         Before images: [<before_img1>, <before_img2>, ...]
+         After images: [<after_img1>, <after_img2>, ...]
+         Checks:
+         <list the QA checks for this pair type from the table below>",
+    tools=["analyze_image", "annotate_regions", "list_workspace_files", "build_composite"],
+    skill="visual_qa_before_after"
+)
+```
+
+**QA checks per pair type:**
+
+**IDU Installation (2.1/2.2, 3.2/3.3):**
+- Before shows old/existing equipment (new in Before = fake = Critical REJECT)
+- After: IDU on floating nuts, 4 screws, 1U ventilation gap
+- All visible cable ends labeled with yellow tags
+- Labels must identify NE and FE sites clearly (yellow, readable, consistent with report site pair). Extra descriptive text is acceptable.
+
+**IDU Power (2.3/2.4, 3.4/3.5):**
+- Tubular terminals at breaker, cable lugs at busbar
+- Breakers labeled with yellow ID tags
+- Power cables labeled with yellow tags identifying MAIN/STBY
+
+**IDU Grounding (2.5/2.6, 3.6/3.7):**
+- Yellow-green grounding cable present
+- Cable lugs at visible terminations
+- Heat shrink over terminations
+- Labels visible where the IDU or busbar end is shown
+
+**IF Cable (2.7/2.8, 3.8/3.9):**
+- 200mm bending radius maintained
+- Waterproofing 1+3+3 tape layers on connectors
+- Grounding kit 0.5-1m from entry points
+- Labels visible where the IDU or ODU end is shown
+
+**FE Cable (2.9/2.10, 3.10/3.11):**
+- Yellow ID tags on every visible cable end
+- Cables securely seated in ports
+- Neat bundling with black cable clamps
+
+**MW/ODU (2.11/2.12, 3.12/3.13):**
+- ODU securely mounted, captive screws diagonal
+- Connector waterproofing 1+3+3
+- Grounding kit installed
+- Antenna label: alphabet stencil (not handwritten)
+
+### Step 5: Visual QA — NMS Screenshots (spawn_agent, PARALLEL)
+
+For each NMS section with images, spawn a sub-agent with `skill="visual_qa_screenshot"`.
+Each section is checked individually — do NOT build composites for NMS sections.
+Pass the individual image filenames from parse_pdf's sections array.
+
+```
+spawn_agent(
+    task="NMS QA: <section name> (section <number>).
+         Images: [<img1>, <img2>, ...]
+         Checks:
+         <list section-specific checks from the table below>",
+    tools=["analyze_image", "annotate_regions", "list_workspace_files"],
+    skill="visual_qa_screenshot"
+)
+```
+
+**Section-specific checks:**
+- Topology (2.14/3.15): attach the correct topology screenshot for the site/link; it must be clear, current, and readable. Laptop screenshot is acceptable. For 3.15, topology printscreen must be obtained from technical team.
+- Slot Layout (2.15/3.16): attach the latest slot layout screenshot from site; full slot/module layout must be visible and readable. Check that chassis/slots/modules/ports are shown clearly. Laptop screenshot is acceptable.
+- General Alarm (2.16/3.17): attach the latest general alarm screenshot from site; it must be clear and readable. Key QA rule: **make sure no new alarm before leaving site**.
+- Link Budget (2.17/3.18): provide a clear screenshot/photo of the **latest link budget with all data visible**, **plus** a photo proving **1 printed copy is attached on top of the IDU at site**.
+- RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it must clearly show RSL and link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). Laptop screenshot is acceptable.
+- Site Environment (2.21/3.22): for cabin sites, provide **4 inside photos from corner views**; photos must be clear, GPS-enabled, and use only accepted IEPMS watermark. No watermark or non-IEPMS watermark = reject.
+
+**Important note:**
+- The KB evidence clearly confirms Topology, Slot Layout, General Alarm, Link Budget, RSL, and Site Environment sections.
+- I did **not** find reliable evidence to keep this generic line as written:
+  - `Link Performance (2.19-2.22/3.20-3.22): error counters within thresholds`
+- Based on current evidence, **ATPC** and **ACM** appear as fields inside the **RSL / Microwave Link Configuration** screenshot, not confirmed standalone QA sections.
+- So unless you verify the original PDF pages directly, it is safer to **remove or rewrite** that line.
+
+### Step 6: Present Results
+
+After ALL sub-agents complete, present a structured summary message.
+
+**How to read sub-agent results:** each visual QA sub-agent now returns its findings as a
+structured payload via the `final_answer` tool. You will see this payload in the spawn_agent
+result under `data.final_answer` with this shape:
+
+```json
+{
+  "section": "2.1/2.2 IDU Installation",
+  "status": "FAIL",
+  "severity": "Major",
+  "legitimacy": {"status": "PASS", "reason": "..."},
+  "findings": [
+    {
+      "check": "Cable labeling",
+      "requirement": "All visible cable ends must be labeled with yellow tags identifying NE and FE site IDs",
+      "status": "FAIL",
+      "severity": "Major",
+      "description": "FE port cable end has no label visible",
+      "annotated_image": "after_2_1_annotated.png"
+    },
+    ...
+  ],
+  "not_verifiable_count": 1
+}
+```
+
+Use the `requirement` field to cite the exact rule that was violated for each FAIL.
+
+Present:
+1. **Overall status**: PASS or REJECT
+2. **Header validation**: pass/fail + issues
+3. **Section-by-section results table**:
+   | Section | Pair | Status | Severity | Failed checks (with rule cited) |
+   For all Near End and Far End pairs/NMS sections.
+4. **Missing sections** (if any)
+5. **Severity summary**: X Critical, Y Major, Z Minor
+6. **Rejection reasons** (if REJECT) — cite the `requirement` text from the relevant findings
+
+The annotated images for failed items are already posted by the sub-agents and the filenames
+are recorded on each finding. You can list them inline with the corresponding rule violation.
+
+## Rejection Criteria (Immediate REJECT)
+- Missing mandatory photo sections (IDU, Power, Grounding, Cable, ODU Before/After)
+- Missing or incorrect labeling on any cable or equipment
+- No grounding cable installed (no yellow/green cable visible)
+- Fake/staged Before photos (new equipment in Before shots)
+- Missing NMS screenshots (Topology, Slot Layout, RSL)
+- Inconsistent site data across sections
+- Missing Far End entirely
+
+## Important Notes
+- **Labeling rule**: Only FAIL a label if it is missing, unreadable, or identifies the wrong site. Extra descriptive text, additional info (IP, TX/RX), or minor format variations on an otherwise correct label are NOT grounds for FAIL.
+- **Labeling visibility rule**: A single photo typically shows only ONE end of a cable. When the rule says "labels at both ends", verify only the labels VISIBLE in the photo — do NOT FAIL because the opposite end is not in frame. The Before/After photos cover both ends across the section pair (e.g. After IDU shows IDU end, After ODU/Busbar shows the other end).
+- The report covers TWO sites (Near End + Far End) — check BOTH
+- Labels must use NE Site ID-FE Site ID format
+- Antenna labels: alphabet stencil at bottom of antenna (not handwritten)
+- Power cables: tubular at breaker, cable lug at busbar
+- Grounding: yellow/green cable, cable lug, heatshrink — all three mandatory
+- Link Performance sections (2.20-2.22, 3.20-3.22) may be NA depending on link config

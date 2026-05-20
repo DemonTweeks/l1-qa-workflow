@@ -36,6 +36,8 @@ analyze_image(
     prompt="Compare Before vs After installation images.
             Check: Is the Before photo legitimate (old/existing equipment)?
             New equipment in Before = fake = Critical REJECT.
+            Only reject if you can SEE specific evidence of staging/new equipment,
+            not just because the Before photo is clean or well-lit.
             What changed between Before and After?
             Report PASS/FAIL with severity."
 )
@@ -69,6 +71,7 @@ analyze_image(
             1. Only mark FAIL when you can SEE a specific visible defect or violation.
             2. For labeling: only FAIL if a label is missing, unreadable, or identifies the wrong site.
                Extra text, additional info, or format variations on a correct label are NOT defects.
+               If a valid label is present and legible, do not fail it simply because it looks different.
             If a check cannot be verified from the photo (detail not visible, angle doesn't show it,
             item is out of frame), mark it N_A — NEVER mark FAIL for unverifiable items.
             FAIL requires visible evidence with a localizable bbox."

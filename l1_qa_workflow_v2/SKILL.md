@@ -36,8 +36,8 @@ From the sections array, match to Before/After pairs and NMS groups:
 - Far End: 3.2/3.3 (IDU), 3.4/3.5 (IDU Power), 3.6/3.7 (IDU Grounding), 3.8/3.9 (IF Cable), 3.10/3.11 (FE Cable), 3.12/3.13 (MW/ODU)
 
 **NMS sections** (screenshot verification):
-- Near End: 2.14 (Topology), 2.15 (Slot Layout), 2.16 (General Alarm), 2.17 (Link Budget), 2.18 (RSL), 2.19-2.22 (Link Performance)
-- Far End: 3.15-3.22 (same structure)
+- Near End: 2.14 (Topology), 2.15 (Slot Layout), 2.16 (General Alarm), 2.17 (Link Budget), 2.18 (RSL), 2.19-2.26 (Link Performance)
+- Far End: 3.15 (Topology), 3.16 (Slot Layout), 3.17 (General Alarm), 3.18 (Link Budget), 3.19 (RSL), 3.20-3.27 (Link Performance)
 
 **Standalone after-only sections**: 2.13 (ODU Grounding), 3.14 (ODU Grounding)
 
@@ -147,14 +147,14 @@ spawn_agent(
 - General Alarm (2.16/3.17): attach the latest general alarm screenshot from site; it must be clear and readable. Key QA rule: **make sure no new alarm before leaving site**.
 - Link Budget (2.17/3.18): provide a clear screenshot/photo of the **latest link budget with all data visible**, **plus** a photo proving **1 printed copy is attached on top of the IDU at site**.
 - RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it must clearly show RSL and link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). Laptop screenshot is acceptable.
-- Site Environment (2.21/3.22): for cabin sites, provide **4 inside photos from corner views**; photos must be clear, GPS-enabled, and use only accepted IEPMS watermark. No watermark or non-IEPMS watermark = reject.
+- Site Environment (2.29/3.30): for cabin sites, provide **4 inside photos from corner views**; photos must be clear, GPS-enabled, and use only accepted IEPMS watermark. No watermark or non-IEPMS watermark = reject.
+- Link Performance (2.19-2.26/3.20-3.27): if present, attach the latest 15-minute and 24-hour performance statistics. Screenshots must be clear and readable; use them to verify link stability over time.
 
 **Important note:**
-- The KB evidence clearly confirms Topology, Slot Layout, General Alarm, Link Budget, RSL, and Site Environment sections.
-- I did **not** find reliable evidence to keep this generic line as written:
-  - `Link Performance (2.19-2.22/3.20-3.22): error counters within thresholds`
+- The KB evidence clearly confirms Topology, Slot Layout, General Alarm, Link Budget, RSL, Site Environment, and Link Performance sections.
+- Link Performance sections (2.19-2.26/3.20-3.27) are valid report sections and should be checked if present.
 - Based on current evidence, **ATPC** and **ACM** appear as fields inside the **RSL / Microwave Link Configuration** screenshot, not confirmed standalone QA sections.
-- So unless you verify the original PDF pages directly, it is safer to **remove or rewrite** that line.
+- Use the parsed report section titles and screenshots as the authoritative source for NMS section behavior.
 
 ### Step 6: Present Results
 
@@ -217,4 +217,4 @@ are recorded on each finding. You can list them inline with the corresponding ru
 - Antenna labels: alphabet stencil at bottom of antenna (not handwritten)
 - Power cables: tubular at breaker, cable lug at busbar
 - Grounding: yellow/green cable, cable lug, heatshrink — all three mandatory
-- Link Performance sections (2.20-2.22, 3.20-3.22) may be NA depending on link config
+- Link Performance sections (2.19-2.26, 3.20-3.27) may be NA depending on link config

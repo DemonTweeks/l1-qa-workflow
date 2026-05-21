@@ -123,7 +123,7 @@
 
 **Recommended Refinements**:
 1. Clarify FE Cable requirement: **black cable clamps mandatory** — explicitly reject white zip ties (not professional, not weatherproof).
-2. Strengthen IF Cable waterproofing: **1+3+3 tape layers on connectors** must be visible in photo. Incomplete tape = **Major FAIL**.
+2. Strengthen IF Cable waterproofing: the connector must be fully sealed with professional waterproofing. Yellow heat shrink sleeves or equivalent encapsulation are acceptable when the sealing appears complete; do not require visible tape layer counts as long as the connector is properly sealed.
 3. Add check: **grounding kit 0.5-1m from entry point** — must be localized and visible in photo.
 4. Tighten label requirement: **yellow ID tags on every visible cable end** — no exceptions. If a cable end is visible but unlabeled = **Major FAIL**.
 

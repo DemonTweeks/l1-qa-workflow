@@ -109,7 +109,7 @@ spawn_agent(
 
 **IF Cable (2.7/2.8, 3.8/3.9):**
 - 200mm bending radius maintained (if visible in photo, verify maintained; if angle/setup doesn't allow verification, mark N_A)
-- Waterproofing on connectors should be complete and professionally applied; 1+3+3 tape layering is preferred but not mandatory if equivalent sealing is clearly present. Verify the connector appears fully sealed; if the connector is not visible or accessible due to angle, mark N_A.
+- Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible due to angle, mark N_A.
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
 - Labels visible where the IDU or ODU end is shown (labels should be present at cable ends if shown; verify across the Before/After pair - one end per photo is acceptable)
 
@@ -120,7 +120,7 @@ spawn_agent(
 
 **MW/ODU (2.11/2.12, 3.12/3.13):**
 - ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)
-- Connector waterproofing should be complete and professionally applied; 1+3+3 tape layering is preferred but not mandatory if equivalent sealing is clearly present. Verify the connector appears fully sealed; if the connector is not visible or accessible in the photo angle, mark N_A.
+- Connector waterproofing should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible in the photo angle, mark N_A.
 - Grounding kit installed (if grounding connection visible, verify kit present; if not visible, mark N_A)
 - Antenna label: alphabet stencil (not handwritten) (if antenna label visible, verify stencil format; if not visible, mark N_A)
 

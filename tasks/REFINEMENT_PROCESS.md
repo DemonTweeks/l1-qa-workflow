@@ -268,15 +268,15 @@ This document outlines the complete workflow to refine L1 QA skills based on pra
 
 **Action 3.3b**: Update Step 4 IF Cable (2.7/2.8, 3.8/3.9) checks
 - **Current**: Generic 1+3+3 tape requirement
-- **Required change**: Make waterproofing visibility mandatory, add grounding kit proximity
+- **Required change**: Make waterproofing verification more realistic; allow professional sealing alternatives such as yellow heat shrink sleeves
 - **New text**:
   ```
   - **200mm bending radius maintained** (visible in photo or documented)
-  - **Waterproofing 1+3+3 tape layers MUST be visible** on connectors
-    (incomplete tape: Major FAIL; tape not visible: N_A if connectors hidden)
+  - **Connector waterproofing must be fully sealed and professionally applied**; yellow heat shrink sleeves or equivalent encapsulation are acceptable when the connector appears properly sealed.
+    (do not fail solely because distinct tape layers are not visible; if the connector is hidden, mark N_A)
   - **Grounding kit 0.5-1m from entry points** (must be localized and visible)
   - Labels visible where IDU or ODU end is shown
-  - If waterproofing incomplete or missing: Major FAIL
+  - If waterproofing appears incomplete or connector seal is absent: Major FAIL
   ```
 
 **File 2**: `visual_qa_before_after/SKILL.md`
@@ -293,8 +293,8 @@ This document outlines the complete workflow to refine L1 QA skills based on pra
   - If visible cable end has no label: Mark as FAIL, Major severity
   
   IF Cable Waterproofing:
-  - requirement: "Waterproofing 1+3+3 tape layers visible on connectors"
-  - If tape incomplete or missing: Mark as FAIL, Major severity
+  - requirement: "Connector waterproofing must be fully sealed and professionally applied; equivalent protection such as yellow heat shrink sleeves is acceptable when the seal is complete"
+  - If the connector appears unsealed or incomplete: Mark as FAIL, Major severity
   
   Grounding Kit Proximity (IF Cable):
   - requirement: "Grounding kit 0.5-1m from entry points"

@@ -34,6 +34,7 @@
 
 **MW/ODU (2.11/2.12, 3.12/3.13)**:
 - Added N_A guidance for visibility-dependent checks (waterproofing, connector details, antenna label)
+- Clarified waterproofing: accept professionally applied sealing even if the exact 1+3+3 layer count is not clearly visible, as long as the connector appears properly sealed.
 
 ### 2. **l1_qa_workflow_v2/SKILL.md** — Updated Rejection Criteria
 

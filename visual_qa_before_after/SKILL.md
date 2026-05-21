@@ -35,11 +35,12 @@ analyze_image(
     workspace_filenames=[<before_composite>, <after_composite>],
     prompt="Compare Before vs After installation images.
             Check: Is the Before photo legitimate (old/existing equipment)?
-            New equipment in Before = fake = Critical REJECT.
-            Only reject if you can SEE specific evidence of staging/new equipment,
-            not just because the Before photo is clean or well-lit.
+            Signs of staging to REJECT: pristine new equipment clearly unpacked/unused, obvious setup/test scenario.
+            New equipment alone is NOT rejection — construction projects commonly replace equipment.
+            Focus on: Is the Before photo from the ACTUAL site showing ACTUAL condition before THIS installation work?
+            Only mark FAIL if there is clear evidence of staging/fake scenario (e.g., lab test setup, equipment box still open, etc).
             What changed between Before and After?
-            Report PASS/FAIL with severity."
+            Report PASS/FAIL with severity (mark FAIL only if staging is evident)."
 )
 ```
 
@@ -72,6 +73,11 @@ analyze_image(
             2. For labeling: only FAIL if a label is missing, unreadable, or identifies the wrong site.
                Extra text, additional info, or format variations on a correct label are NOT defects.
                If a valid label is present and legible, do not fail it simply because it looks different.
+               Note: A single photo shows ONE cable end. Labels on both ends are verified across the Before/After pair;
+               if one end has the label visible and readable, and the other end is not shown in that photo, mark PASS.
+            3. For heat shrink, grounding kits, breaker tags, and other components: Only mark FAIL if the item is VISIBLE in the photo
+               but is missing/defective. If the specific item/connection point is not visible/shown/accessible in the photo angle,
+               mark N_A (not verifiable) rather than FAIL.
             If a check cannot be verified from the photo (detail not visible, angle doesn't show it,
             item is out of frame), mark it N_A — NEVER mark FAIL for unverifiable items.
             FAIL requires visible evidence with a localizable bbox."

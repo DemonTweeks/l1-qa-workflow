@@ -120,6 +120,18 @@
 
 ### Task Tracking
 
+## 2026-05-21 — Implementation Phase 2: Remove unnecessary false-positive checks
+
+**Basis**: Continued testing showed the approved report still received avoidable failures from label format, cable bundling, and screenshot legibility rules.
+
+**Changes Made**:
+- Relaxed label guidance so non-NE/FE but clear cable/equipment tags are accepted.
+- Allowed secure cable management with white zip ties or equivalent, not only black clamps.
+- Improved screenshot rules to avoid rejection for modest resolution when topology/RSL/data fields remain legible.
+- Clarified that new/replaced equipment in Before photos is not fraud unless explicit staging evidence exists.
+- Strengthened the N_A rule: if a detail is not visible due to framing or angle, it should be marked N_A rather than FAIL.
+
+
 All items documented in `tasks/refinement_tasks.md` with detailed recommendations for each.
 
 | Task | Category | Critical | High | Files | Commit Ref |

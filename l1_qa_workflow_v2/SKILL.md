@@ -93,13 +93,13 @@ spawn_agent(
 **IDU Installation (2.1/2.2, 3.2/3.3):**
 - Before shows old/existing equipment (if Before shows new/pristine condition, verify workmanship in After photo; do NOT auto-reject)
 - After: IDU on floating nuts, 4 screws, 1U ventilation gap
-- All visible cable ends labeled with yellow tags (labels on both ends of a cable verified across the Before/After pair; one end per photo is acceptable)
-- Labels must identify NE and FE sites clearly (yellow, readable, consistent with report site pair). Extra descriptive text is acceptable. If a label is visible and identifies a site, it PASSES even if the opposite end's label is not visible in that photo.
+- All visible cable ends labeled with yellow tags or other clearly legible end identification (labels on both ends of a cable are verified across the Before/After pair; one end per photo is acceptable)
+- Labels should identify NE and FE sites when the format is present, but other clear and valid cable/equipment identification is acceptable if NE/FE site IDs are not shown. If a label is visible and legible, do not fail simply because it uses a different naming style.
 
 **IDU Power (2.3/2.4, 3.4/3.5):**
 - Tubular terminals at breaker, cable lugs at busbar
-- Breakers labeled with yellow ID tags (if tags visible, verify readable; if not visible in photo angle, mark N_A, do NOT auto-fail)
-- Power cables labeled with yellow tags identifying MAIN/STBY (labels should be visible at cable connection point if the connection is shown; if the exact connection point is not visible or angle doesn't allow verification, mark N_A, do NOT auto-fail)
+- Breakers labeled with yellow ID tags when visible (if tags are in frame, verify they are readable; if the breaker label area is not shown, mark N_A and do NOT auto-fail)
+- Power cables should have clear functional labels such as MAIN/STBY or equivalent role identifiers; if the cable end is visible and the tag clearly indicates its purpose, do not fail because the exact text differs. If the exact connection point is not visible, mark N_A rather than FAIL.
 
 **IDU Grounding (2.5/2.6, 3.6/3.7):**
 - Yellow-green grounding cable present (must be visible)
@@ -114,9 +114,9 @@ spawn_agent(
 - Labels visible where the IDU or ODU end is shown (labels should be present at cable ends if shown; verify across the Before/After pair - one end per photo is acceptable)
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
-- Yellow ID tags on every visible cable end (tags should be present on cable ends that are visible in the photo; if cable end is not visible/not in frame, mark N_A for that end)
+- Yellow ID tags on every visible cable end (tags should be present on cable ends that are visible in the photo; if a cable end is not visible/not in frame, mark N_A for that end)
 - Cables securely seated in ports (verify if ports and cable connection are visible; if not visible, mark N_A)
-- Neat bundling with black cable clamps (if bundling is visible in photo, verify clamps present; if not visible, mark N_A)
+- Neat bundling with secure cable management; black cable clamps are preferred but not mandatory when cables are otherwise well-supported and routed neatly. If bundling is visible, verify it is tidy; if not visible, mark N_A.
 
 **MW/ODU (2.11/2.12, 3.12/3.13):**
 - ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)
@@ -142,12 +142,12 @@ spawn_agent(
 ```
 
 **Section-specific checks:**
-- Topology (2.14/3.15): attach the correct topology screenshot for the site/link; it must be clear, current, and readable. Laptop screenshot is acceptable. For 3.15, topology printscreen must be obtained from technical team.
+- Topology (2.14/3.15): attach the correct topology screenshot for the site/link; it should be clear and readable. Laptop screenshot is acceptable. If the topology information is legible despite modest resolution, do not reject for low pixel density alone. For 3.15, topology printscreen must be obtained from technical team.
 - Slot Layout (2.15/3.16): attach the latest slot layout screenshot from site; full slot/module layout must be visible and readable. Check that chassis/slots/modules/ports are shown clearly. Laptop screenshot is acceptable.
 - General Alarm (2.16/3.17): attach the latest general alarm screenshot from site; it must be clear and readable. Key QA rule: **make sure no new alarm before leaving site**.
 - Link Budget (2.17/3.18): provide a clear screenshot/photo of the **latest link budget with all data visible**, **plus** a photo proving **1 printed copy is attached on top of the IDU at site**.
-- RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it must clearly show RSL and link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). Laptop screenshot is acceptable.
-- Site Environment (2.29/3.30): for cabin sites, provide **4 inside photos from corner views**; photos must be clear, GPS-enabled, and use only accepted IEPMS watermark. No watermark or non-IEPMS watermark = reject.
+- RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it should clearly show the RSL section or live link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). If the panel is present but the numeric value is small and hard to read, do not automatically FAIL; instead mark N_A if the required field is present but not clearly legible.
+- Site Environment (2.29/3.30): for cabin sites, provide **4 inside photos from corner views**; photos should be clear, GPS-enabled, and use accepted IEPMS watermark when available. If the photos show a genuine cabin interior and the watermark is partially obscured, do not reject solely on watermark quality.
 - Link Performance (2.19-2.26/3.20-3.27): if present, attach the latest 15-minute and 24-hour performance statistics. Screenshots must be clear and readable; use them to verify link stability over time.
 
 **Important note:**
@@ -202,20 +202,20 @@ are recorded on each finding. You can list them inline with the corresponding ru
 
 ## Rejection Criteria (Immediate REJECT)
 - Missing mandatory photo sections (IDU, Power, Grounding, Cable, ODU Before/After)
-- Missing or incorrect labeling on any cable or equipment (only FAIL if label is missing, unreadable, or identifies the wrong site)
-- No grounding cable installed (no yellow/green cable visible)
+- Missing or incorrect labeling on any cable or equipment (only FAIL if the label is missing, unreadable, or clearly wrong for the site/equipment)
+- No grounding cable installed (no yellow/green grounding cable visible)
 - Staged/fake Before photos (clear evidence of lab test setup or staging, NOT just new equipment being installed)
 - Missing NMS screenshots (Topology, Slot Layout, RSL)
 - Inconsistent site data across sections
 - Missing Far End entirely
 
 ## Important Notes
-- **Labeling rule**: Only FAIL a label if it is missing, unreadable, or identifies the wrong site. Extra descriptive text, additional info (IP, TX/RX), or minor format variations on an otherwise correct label are NOT grounds for FAIL.
+- **Labeling rule**: Only FAIL a label if it is missing, unreadable, or identifies the wrong site/equipment. Extra descriptive text, additional info (IP, TX/RX), or minor format variations on an otherwise correct label are NOT grounds for FAIL.
 - **Labeling visibility rule**: A single photo typically shows only ONE end of a cable. When the rule says "labels at both ends", verify only the labels VISIBLE in the photo — do NOT FAIL because the opposite end is not in frame. The Before/After photos cover both ends across the section pair (e.g. After IDU shows IDU end, After ODU/Busbar shows the other end).
+- **Label format guidance**: Preferred label format uses NE Site ID–FE Site ID. However, other clear, legible labels that identify the cable/equipment end or function are acceptable if the exact NE/FE format is not shown.
 - **Verification rule**: If a component (heat shrink, breaker tag, grounding kit, waterproofing, etc.) is NOT VISIBLE in the photo (due to angle, distance, or framing), mark it N_A (not verifiable), NOT FAIL. Only mark FAIL when the item is clearly visible but defective or missing.
 - The report covers TWO sites (Near End + Far End) — check BOTH
-- Labels must use NE Site ID-FE Site ID format
-- Antenna labels: alphabet stencil at bottom of antenna (not handwritten)
-- Power cables: tubular at breaker, cable lug at busbar
-- Grounding: yellow/green cable and cable lug required; heat shrink required if connection point is visible
+- Antenna labels: alphabet stencil at bottom of antenna (not handwritten) when visible
+- Power cables: tubular at breaker, cable lug at busbar when visible
+- Grounding: yellow/green cable and cable lug required; heat shrink required if the termination point is visible
 - Link Performance sections (2.19-2.26, 3.20-3.27) may be NA depending on link config

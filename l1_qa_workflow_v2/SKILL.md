@@ -104,7 +104,7 @@ spawn_agent(
 **IDU Grounding (2.5/2.6, 3.6/3.7):**
 - Yellow-green grounding cable present (must be visible)
 - Cable lugs at visible terminations (if termination visible, verify lug present; if termination not visible in photo, mark N_A)
-- Heat shrink over terminations (if cable lug termination is visible in the photo, check for heat shrink; if the specific termination point is not fully visible/angle doesn't show it, mark N_A, do NOT auto-fail)
+- Termination method proper and secure: bare screw lugs on hardware are acceptable; heat shrink or other insulation protection is acceptable when used but not mandatory for screw lug connections; if termination is unclear or angle doesn't allow verification, mark N_A
 - Labels visible where the IDU or busbar end is shown (labels should be visible at connection point if shown in photo; if angle/lighting prevents visibility, mark N_A)
 
 **IF Cable (2.7/2.8, 3.8/3.9):**
@@ -122,7 +122,7 @@ spawn_agent(
 - ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)
 - Connector waterproofing should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible in the photo angle, mark N_A.
 - Grounding kit installed (if grounding connection visible, verify kit present; if not visible, mark N_A)
-- Antenna label: alphabet stencil (not handwritten) (if antenna label visible, verify stencil format; if not visible, mark N_A)
+- Antenna label: alphabet stencil preferred; handwritten marker over a stencil is acceptable when the stencil form is present. If the antenna label is visible, verify the stencil format or stamped character style; if not visible, mark N_A.
 
 ### Step 5: Visual QA — NMS Screenshots (spawn_agent, PARALLEL)
 

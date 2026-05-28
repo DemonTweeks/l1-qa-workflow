@@ -1,5 +1,5 @@
 ---
-name: l1-qa-workflow
+name: l1-qa-workflow-v2
 description: Orchestrate a Quality Review of an L1 Self-Check report for the ZTE CelcomDigi Microwave project, with annotated image feedback for failed items.
 ---
 
@@ -91,37 +91,39 @@ spawn_agent(
 **QA checks per pair type:**
 
 **IDU Installation (2.1/2.2, 3.2/3.3):**
-- Before shows old/existing equipment (if Before shows new/pristine condition, verify workmanship in After photo; do NOT auto-reject)
-- After: IDU on floating nuts, 4 screws, 1U ventilation gap
-- All visible cable ends labeled with yellow tags or other clearly legible end identification (labels on both ends of a cable are verified across the Before/After pair; one end per photo is acceptable)
-- Labels should identify NE and FE sites when the format is present, but other clear and valid cable/equipment identification is acceptable if NE/FE site IDs are not shown. If a label is visible and legible, do not fail simply because it uses a different naming style.
+- Before should show old/existing equipment. If the Before photo shows new or pristine equipment, verify workmanship in the After photo and do NOT auto-reject based on new equipment alone.
+- Reject only when the Before photo shows explicit staging/fake conditions such as factory packaging still attached, temporary lab/test bench setup, a non-site environment, or other clear evidence the image is not the real pre-installation site condition.
+- After: IDU on floating nuts, 4 screws, 1U ventilation gap.
+- All visible cable ends must be labeled with yellow tags or other clearly legible end identification. Labels are evaluated only for the visible cable ends in the photo; one end per photo is acceptable when the pair collectively shows both ends.
+- Labels should identify NE and FE sites when the format is present, but other clear and valid cable/equipment identification is acceptable if NE/FE site IDs are not shown. Labels must be unambiguous and readable at photo resolution; do not fail simply for alternate naming style or extra annotation.
 
 **IDU Power (2.3/2.4, 3.4/3.5):**
-- Tubular terminals at breaker, cable lugs at busbar
-- Breakers labeled with yellow ID tags when visible (if tags are in frame, verify they are readable; if the breaker label area is not shown, mark N_A and do NOT auto-fail)
-- Power cables should have clear functional labels such as MAIN/STBY or equivalent role identifiers; if the cable end is visible and the tag clearly indicates its purpose, do not fail because the exact text differs. If the exact connection point is not visible, mark N_A rather than FAIL.
+- Tubular terminals at breaker, cable lugs at busbar.
+- Breakers labeled with yellow ID tags when visible; if the breaker label area is shown, verify the tag is readable. If the breaker label area is not shown, mark N_A and do NOT auto-fail.
+- Power cables should have clear functional labels such as MAIN/STBY or equivalent role identifiers. If the cable end is visible and the tag clearly indicates its purpose, do not fail because the exact text differs. If the exact connection point is not visible, mark N_A rather than FAIL.
+- Label placement matters: tags should be near the breaker or on the cable at the connection point when visible.
 
 **IDU Grounding (2.5/2.6, 3.6/3.7):**
-- Yellow-green grounding cable present (must be visible)
-- Cable lugs at visible terminations (if termination visible, verify lug present; if termination not visible in photo, mark N_A)
-- Termination method proper and secure: bare screw lugs on hardware are acceptable; heat shrink or other insulation protection is acceptable when used but not mandatory for screw lug connections; if termination is unclear or angle doesn't allow verification, mark N_A
-- Labels visible where the IDU or busbar end is shown (labels should be visible at connection point if shown in photo; if angle/lighting prevents visibility, mark N_A)
+- Yellow-green grounding cable present (must be visible).
+- Cable lugs at visible terminations (if termination is visible, verify the lug is present; if termination is not visible in the photo, mark N_A).
+- Termination method should be proper and secure. Bare screw lugs are acceptable, but if the termination is visible, insulation protection such as heat shrink or other proper coverage must be present. If a visible termination is bare and unprotected, FAIL. If the termination is unclear or the angle doesn't allow verification, mark N_A.
+- Labels visible where the IDU or busbar end is shown. If visible, verify they identify the grounding path or equipment; if angle/lighting prevents visibility, mark N_A.
 
 **IF Cable (2.7/2.8, 3.8/3.9):**
-- 200mm bending radius maintained (if visible in photo, verify maintained; if angle/setup doesn't allow verification, mark N_A)
-- Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible due to angle, mark N_A.
-- Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
-- Labels visible where the IDU or ODU end is shown (labels should be present at cable ends if shown; verify across the Before/After pair - one end per photo is acceptable)
+- 200mm bending radius maintained (if visible in photo, verify it; if the angle/setup doesn't allow verification, mark N_A).
+- Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is visible and not fully sealed, FAIL. If the connector is not visible or accessible due to angle, mark N_A.
+- Grounding kit 0.5-1m from entry points (if entry point is visible, verify distance; if not visible, mark N_A).
+- Labels visible where the IDU or ODU end is shown; labels should be present at cable ends if shown; verify across the Before/After pair - one end per photo is acceptable.
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
-- Yellow ID tags on every visible cable end (tags should be present on cable ends that are visible in the photo; if a cable end is not visible/not in frame, mark N_A for that end)
-- Cables securely seated in ports (verify if ports and cable connection are visible; if not visible, mark N_A)
-- Neat bundling with secure cable management; black cable clamps are preferred but not mandatory when cables are otherwise well-supported and routed neatly. If bundling is visible, verify it is tidy; if not visible, mark N_A.
+- Yellow ID tags on every visible cable end (tags should be present on cable ends that are visible in the photo; if a cable end is not visible/not in frame, mark N_A for that end).
+- Cables securely seated in ports (verify if ports and cable connection are visible; if not visible, mark N_A).
+- Neat bundling with secure cable management; black cable clamps are expected for visible external feeder runs and are preferred for microwave cable routing. White zip ties alone are not acceptable when they are the only visible means of support on the feeder or port run. If bundling is visible and tidy with proper support, verify it is professional; if not visible, mark N_A.
 
 **MW/ODU (2.11/2.12, 3.12/3.13):**
-- ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)
+- ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A).
 - Connector waterproofing should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible in the photo angle, mark N_A.
-- Grounding kit installed (if grounding connection visible, verify kit present; if not visible, mark N_A)
+- Grounding kit installed (if grounding connection is visible, verify kit present; if not visible, mark N_A).
 - Antenna label: alphabet stencil preferred; handwritten marker over a stencil is acceptable when the stencil form is present. If the antenna label is visible, verify the stencil format or stamped character style; if not visible, mark N_A.
 
 ### Step 5: Visual QA — NMS Screenshots (spawn_agent, PARALLEL)
@@ -147,17 +149,14 @@ spawn_agent(
 - General Alarm (2.16/3.17): attach the latest general alarm screenshot from site; it must be clear and readable. Key QA rule: **make sure no new alarm before leaving site**.
 - Link Budget (2.17/3.18): provide a clear screenshot/photo of the **latest link budget with all data visible**, **plus** a photo proving **1 printed copy is attached on top of the IDU at site**.
 - RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it should clearly show the RSL section or live link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). If the panel is present but the numeric value is small and hard to read, do not automatically FAIL; instead mark N_A if the required field is present but not clearly legible.
-- Site Environment (2.29/3.30): provide **4 comprehensive site environment photos from different angles/views** (e.g., corner views for indoor spaces, overall site views for outdoor/shelter installations); photos should be clear, GPS-enabled, and preferably include an accepted IEPMS watermark. If the IEPMS watermark is present in at least one image and the overall site authenticity is clear, do not reject for missing watermark in other images. Photos should capture the actual equipment installation environment, whether indoor cabin, shelter, tower, or outdoor installation; if angle diversity is limited but the site and equipment are clearly shown, favor N_A for angle variety rather than FAIL.
+- Site Environment (2.29/3.30): provide **4 comprehensive site environment photos from different angles/views**, ideally interior cabin corner pictures or shelter interior shots. Photos must show the actual installation environment; exterior-only images are not acceptable for cabin/shelter evidence. Images should be clear, GPS-enabled, and preferably include an accepted IEPMS watermark. At least one image should show a visible IEPMS watermark. If the watermark is present in at least one image and the overall site authenticity is clear, do not reject other images solely for missing watermark. Image format should be standard JPG or PNG and resolution sufficient to verify the environment and equipment context.
 - Link Performance (2.19-2.26/3.20-3.27): if present, attach the latest 15-minute and 24-hour performance statistics. Screenshots must be clear and readable; use them to verify link stability over time.
 
 **Important note:**
 - Do not reject Site Environment solely because some images lack an IEPMS watermark when at least one accepted watermarked photo is included and the site authenticity is otherwise clear.
 - Do not fail Site Environment for limited angle variety when the equipment and installation context are clearly captured; use N_A or minor comments instead unless the site view is completely insufficient.
-- The KB evidence clearly confirms Topology, Slot Layout, General Alarm, Link Budget, RSL, Site Environment, and Link Performance sections.
-- Link Performance sections (2.19-2.26/3.20-3.27) are valid report sections and should be checked if present.
-- Based on current evidence, **ATPC** and **ACM** appear as fields inside the **RSL / Microwave Link Configuration** screenshot, not confirmed standalone QA sections.
-- Use the parsed report section titles and screenshots as the authoritative source for NMS section behavior.
-
+ 
+**Important note:**
 ### Step 6: Present Results
 
 After ALL sub-agents complete, present a structured summary message.
@@ -208,6 +207,7 @@ are recorded on each finding. You can list them inline with the corresponding ru
 - No grounding cable installed (no yellow/green grounding cable visible)
 - Staged/fake Before photos (clear evidence of lab test setup or staging, NOT just new equipment being installed)
 - Missing NMS screenshots (Topology, Slot Layout, RSL)
+- Missing or invalid Site Environment evidence (interior cabin/shelter images only or no valid IEPMS watermark when required)
 - Inconsistent site data across sections
 - Missing Far End entirely
 

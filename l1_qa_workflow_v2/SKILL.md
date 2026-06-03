@@ -144,7 +144,7 @@ spawn_agent(
 ```
 
 **Section-specific checks:**
-- Topology (2.14/3.15): attach the correct topology screenshot for the site/link; it should be clear and readable. Laptop screenshot is acceptable. If the topology information is legible despite modest resolution, do not reject for low pixel density alone. For 3.15, topology printscreen must be obtained from technical team.
+- Topology (2.14/3.15): attach the correct topology screenshot for the site/link showing topology layout and details. Laptop screenshot is acceptable. Do not reject based on resolution if the topology information (site IDs, links, modules) is legible enough to verify configuration. For 3.15, topology printscreen must be obtained from technical team.
 - Slot Layout (2.15/3.16): attach the latest slot layout screenshot from site; full slot/module layout must be visible and readable. Check that chassis/slots/modules/ports are shown clearly. Laptop screenshot is acceptable.
 - General Alarm (2.16/3.17): attach the latest general alarm screenshot from site; it must be clear and readable. Key QA rule: **make sure no new alarm before leaving site**.
 - Link Budget (2.17/3.18): provide a clear screenshot/photo of the **latest link budget with all data visible**, **plus** a photo proving **1 printed copy is attached on top of the IDU at site**.
@@ -242,3 +242,5 @@ are recorded on each finding. You can list them inline with the corresponding ru
 - Power cables: tubular at breaker, cable lug at busbar when visible
 - Grounding: yellow/green cable and cable lug required; heat shrink required if the termination point is visible
 - Link Performance sections (2.19-2.26, 3.20-3.27) may be NA depending on link config
+
+- For Topology screenshots: resolution is secondary; if topology details (site IDs, links, modules) are legible, do not fail for modest resolution.

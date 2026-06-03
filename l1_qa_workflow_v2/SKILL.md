@@ -151,7 +151,7 @@ spawn_agent(
 - RSL / Microwave Link Configuration (2.18/3.19): attach the latest site screenshot showing live microwave link data; it should clearly show the RSL section or live link configuration details (e.g. Tx/Rx frequency, Tx power, link state, bandwidth/modulation where visible). If the panel is present but the numeric value is small and hard to read, do not automatically FAIL; instead mark N_A if the required field is present but not clearly legible.
 - Site Environment (2.29/3.30):
   - Provide **4 comprehensive site environment photos from different angles/views** (e.g., corner views for indoor spaces, overall site views for outdoor/shelter installations). Aim for at least 4 distinct perspectives; if fewer are provided, note N_A for missing angles but do not auto-fail if the available photos otherwise cover the installation context.
-  - Photos should be clear, GPS-enabled, and preferably include an accepted IEPMS watermark. If the IEPMS watermark is present in at least one image and the overall site authenticity is clear, do not reject for missing watermark in other images.
+  - Photos must be clear, GPS-enabled, and include an accepted IEPMS watermark in each image. A blurry watermark is acceptable as long as there are visible traces of the IEPMS watermark. If an image completely lacks the watermark, mark N_A and note 'missing IEPMS watermark'. Multiple missing watermarks may affect overall section status.
   - Verify basic environmental compliance: no obvious hazards, proper clearances around equipment, proper grounding visibility when possible. If environmental aspects are not clearly shown, mark N_A rather than FAIL.
   - Check that GPS coordinates in photo metadata (if present) are consistent with the reported site location — significant discrepancies (>500m) should be flagged for review, not auto-rejected.
   - **Note:** If angle diversity is limited but the site and equipment are clearly captured, use N_A for missing angles rather than FAIL. Only FAIL for Site Environment if the photos are staged (e.g., empty room, no equipment) or completely fail to show the installation site.
@@ -165,7 +165,7 @@ spawn_agent(
   **Important:** These are screening checks; definitive performance assessment requires engineering review. Use N_A generously for unclear data, and only FAIL for obviously fabricated or missing performance screenshots when they are expected.
 
 **Important note:**
-- Do not reject Site Environment solely because some images lack an IEPMS watermark when at least one accepted watermarked photo is included and the site authenticity is otherwise clear.
+- Site Environment images must each contain an accepted IEPMS watermark. Blurry or partial watermarks are acceptable if traces are visible. Missing watermarks should be recorded as N_A findings; if multiple images lack the watermark, consider the section insufficient evidence.
 - Do not fail Site Environment for limited angle variety when the equipment and installation context are clearly captured; use N_A or minor comments instead unless the site view is completely insufficient.
 - The KB evidence clearly confirms Topology, Slot Layout, General Alarm, Link Budget, RSL, Site Environment, and Link Performance sections.
 - Link Performance sections (2.19-2.26/3.20-3.27) are valid report sections and should be checked if present.

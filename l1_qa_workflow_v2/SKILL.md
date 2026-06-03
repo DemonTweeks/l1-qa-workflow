@@ -111,10 +111,10 @@ spawn_agent(
 - 200mm bending radius maintained (if visible in photo, verify maintained; if angle/setup doesn't allow verification, mark N_A)
 - Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible due to angle, mark N_A.
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
-- Labels visible where the IDU or ODU end is shown (labels should be present at cable ends if shown; verify across the Before/After pair - one end per photo is acceptable)
+- Physical cable end labels: verify that the cable end shown in the photo has a legible physical label (yellow tag or equivalent) attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. Verify across the Before/After pair - one end per photo is acceptable.
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
-- Yellow ID tags on every visible cable end (tags should be present on cable ends that are visible in the photo; if a cable end is not visible/not in frame, mark N_A for that end)
+- Physical yellow ID tags on every visible cable end: verify that the cable end shown in the photo has a legible physical yellow tag attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. If a cable end is not visible/not in frame, mark N_A for that end.
 - Cables securely seated in ports (verify if ports and cable connection are visible; if not visible, mark N_A)
 - Neat bundling with secure cable management; black cable clamps are preferred but not mandatory when cables are otherwise well-supported and routed neatly. If bundling is visible, verify it is tidy; if not visible, mark N_A.
 - **Cross-check:** FE cable labeling should roughly align with IF cable labeling conventions (format may differ but should identify endpoints consistently). Inconsistent naming across cable types in the same installation warrants N_A review, not automatic FAIL.

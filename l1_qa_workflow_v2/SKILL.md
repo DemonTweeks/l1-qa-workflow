@@ -109,7 +109,15 @@ spawn_agent(
 
 **IF Cable (2.7/2.8, 3.8/3.9):**
 - 200mm bending radius maintained (if visible in photo, verify maintained; if angle/setup doesn't allow verification, mark N_A)
-- Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible due to angle, mark N_A.
+- Waterproofing on connectors: the connection must be fully protected from moisture ingress. Acceptable methods include:
+  - Heat shrink sleeves (yellow or other colors) that fully encapsulate the connector
+  - Self-amalgamating tape or rubber sealing tape that provides complete coverage
+  - Moulded rubber boots or boots with integrated sealing
+  - Potting or epoxy encapsulation
+  - Any other method that fully encloses the connector termination and prevents water entry
+
+  **Key check:** Verify that no metal parts, cable jackets, or connection points are exposed to the environment. The waterproofing material should fully cover the connector and a short length of the adjacent cable.
+  Do not fail based on material color, number of layers, or aesthetic appearance alone. Focus on functional completeness of coverage. If the connector or its protection is not clearly visible, mark N_A.
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
 - Cable labeling:
   - If the cable end is **NOT** encapsulated in a waterproofing system (exposed connector and cable), a yellow ID tag must be physically attached to the cable near the termination. Labels printed/stamped directly on the cable jacket are also acceptable.
@@ -126,7 +134,15 @@ spawn_agent(
 
 **MW/ODU (2.11/2.12, 3.12/3.13):**
 - ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)
-- Connector waterproofing should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible in the photo angle, mark N_A.
+- Connector waterproofing: the connection must be fully protected from moisture ingress. Acceptable methods include:
+  - Heat shrink sleeves (yellow or other colors) that fully encapsulate the connector
+  - Self-amalgamating tape or rubber sealing tape that provides complete coverage
+  - Moulded rubber boots or boots with integrated sealing
+  - Potting or epoxy encapsulation
+  - Any other method that fully encloses the connector termination and prevents water entry
+
+  **Key check:** Verify that no metal parts, cable jackets, or connection points are exposed to the environment. The waterproofing material should fully cover the connector and a short length of the adjacent cable.
+  Do not fail based on material color, number of layers, or aesthetic appearance alone. Focus on functional completeness of coverage. If the connector or its protection is not clearly visible, mark N_A.
 - Grounding kit installed (if grounding connection visible, verify kit present; if not visible, mark N_A)
 - Antenna label: alphabet stencil preferred; handwritten marker over a stencil is acceptable when the stencil form is present. If the antenna label is visible, verify the stencil format or stamped character style; if not visible, mark N_A.
 

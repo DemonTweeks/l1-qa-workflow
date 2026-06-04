@@ -93,7 +93,7 @@ spawn_agent(
 **IDU Installation (2.1/2.2, 3.2/3.3):**
 - Before shows old/existing equipment (if Before shows new/pristine condition, verify workmanship in After photo; do NOT auto-reject)
 - After: IDU on floating nuts, 4 screws, 1U ventilation gap
-- All visible cable ends labeled with yellow tags or other clearly legible end identification (labels on both ends of a cable are verified across the Before/After pair; one end per photo is acceptable)
+- Cable ends must have yellow tags or other clearly legible end identification. If a cable end is visible in an image but the label is not shown in that particular image, mark N_A — the label may be visible in another image of the same section. Labels on both ends of a cable are verified across the Before/After pair; one end per photo is acceptable.
 - Labels should identify NE and FE sites when the format is present, but other clear and valid cable/equipment identification is acceptable if NE/FE site IDs are not shown. If a label is visible and legible, do not fail simply because it uses a different naming style.
 
 **IDU Power (2.3/2.4, 3.4/3.5):**

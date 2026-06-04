@@ -111,7 +111,11 @@ spawn_agent(
 - 200mm bending radius maintained (if visible in photo, verify maintained; if angle/setup doesn't allow verification, mark N_A)
 - Waterproofing on connectors should be complete and professionally applied; yellow heat shrink sleeves or equivalent full encapsulation are acceptable when the connector appears properly sealed. Do not fail simply because distinct tape layers are not visible. If the connector is not visible or accessible due to angle, mark N_A.
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
-- Physical cable end labels: verify that the cable end shown in the photo has a legible physical label (yellow tag or equivalent) attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. Verify across the Before/After pair - one end per photo is acceptable.
+- Cable labeling:
+  - If the cable end is **NOT** encapsulated in a waterproofing system (exposed connector and cable), a yellow ID tag must be physically attached to the cable near the termination. Labels printed/stamped directly on the cable jacket are also acceptable.
+  - If the cable end is encapsulated in a waterproofing system (e.g., heat shrink, molded boot), the labeling may be integrated into the waterproofing (printed text on heat shrink, molded markers). In this case, a separate yellow tag on the bare cable is **not required**.
+  - **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels.
+  If the labeling is not legible or the cable end/termination is not visible, mark N_A. Verify across the Before/After pair - one end per photo is acceptable.
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
 - Physical yellow ID tags on every visible cable end: verify that the cable end shown in the photo has a legible physical yellow tag attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. If a cable end is not visible/not in frame, mark N_A for that end.

@@ -77,7 +77,11 @@ analyze_image(
 
 1. **Mark N_A when not visible**: If a component (heat shrink, breaker tag, grounding kit, waterproofing, etc.) is NOT VISIBLE in the photo (due to angle, distance, or framing), mark N_A — NEVER FAIL for unverifiable items. FAIL requires visible evidence.
 
-2. **Labeling**: Only FAIL if a **physical label attached to the cable/equipment** is missing, unreadable, or identifies the wrong site/equipment. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels. Extra text, additional info, or format variations on a correct physical label are NOT defects. A single photo shows ONE cable end; verify only labels visible in that photo — do not fail because the opposite end is not shown (pair-level verification).
+2. **Labeling**: Only FAIL if the required label is missing, unreadable, or incorrect. Label requirements depend on cable termination type:
+   - For **non-waterproofed** cable ends (exposed connector and cable), a yellow ID tag must be physically attached to the cable, or a label printed/stamped directly on the jacket.
+   - For **waterproofed** cable ends (encapsulated in heat shrink, molded boot, etc.), labeling may be integrated into the waterproofing (printed text, molded markers). A separate yellow tag on the bare cable is **not required** in this case.
+   - **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels.
+   Extra text, additional info, or format variations on a correct label are NOT defects. A single photo shows ONE cable end; verify only labels visible in that photo — do not fail because the opposite end is not shown (pair-level verification).
 
 3. **Connection quality**: When visible, verify secure connection (no slack, proper seating, tight terminations). If the connection point is obscured, N_A is acceptable. Do not fail for cable routing style differences (zip ties vs clamps) if cables are neatly managed and supported.
 

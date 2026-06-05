@@ -77,7 +77,13 @@ analyze_image(
 
 1. **Mark N_A when not visible**: If a component (heat shrink, breaker tag, grounding kit, waterproofing, etc.) is NOT VISIBLE in the photo (due to angle, distance, or framing), mark N_A — NEVER FAIL for unverifiable items. FAIL requires visible evidence.
 
-2. **Labeling**: If a required label is **not visible** in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label. Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps as valid labels. Extra text, format variations, or alternative naming styles on a correct physical label are NOT defects. A single photo shows ONE cable end; verify only labels visible in that photo — do not fail because the opposite end is not shown (pair-level verification).
+2. **Labeling**: If a required label is **not visible** in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label. Acceptable physical labels include:
+   - Yellow ID tags attached to cables
+   - Labels printed/stamped directly on cable jackets or equipment surfaces
+   - Alphabet stencil or stamped characters on antennas/equipment
+   - Integrated labeling within waterproof management systems
+   **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels.
+   Extra text, format variations, or alternative naming styles on a correct physical label are NOT defects. A single photo shows one component; verify only labels visible in that photo — do not fail because another view/part is missing (pair-level or section-level consistency handled at orchestrator level).
 
 3. **Connection quality**: When visible, verify secure connection (no slack, proper seating, tight terminations). If the connection point is obscured, N_A is acceptable. Do not fail for cable routing style differences (zip ties vs clamps) if cables are neatly managed and supported.
 

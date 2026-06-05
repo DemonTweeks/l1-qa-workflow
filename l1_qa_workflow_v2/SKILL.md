@@ -144,7 +144,7 @@ spawn_agent(
   **Key check:** Verify that no metal parts, cable jackets, or connection points are exposed to the environment. The waterproofing material should fully cover the connector and a short length of the adjacent cable.
   Do not fail based on material color, number of layers, or aesthetic appearance alone. Focus on functional completeness of coverage. If the connector or its protection is not clearly visible, mark N_A.
 - Grounding kit installed (if grounding connection visible, verify kit present; if not visible, mark N_A)
-- Antenna label: alphabet stencil preferred; handwritten marker over a stencil is acceptable when the stencil form is present. If the antenna label is visible, verify the stencil format or stamped character style; if not visible, mark N_A.
+- Antenna label: alphabet stencil preferred; handwritten marker over a stencil is acceptable when the stencil form is present. If the antenna label is visible in the image, verify the stencil format or stamped character style. If the antenna is visible but the label is not shown in that particular image, mark N_A (the label may be visible in another image of the same section).
 
 ### Step 5: Visual QA — NMS Screenshots (spawn_agent, PARALLEL)
 

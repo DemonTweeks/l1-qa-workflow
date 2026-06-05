@@ -118,7 +118,8 @@ spawn_agent(
   - Any other method that fully encloses the connector termination and prevents water entry
 
   **Key check:** Verify that no metal parts, cable jackets, or connection points are exposed to the environment. The waterproofing material should fully cover the connector and a short length of the adjacent cable.
-  Do not fail based on material color, number of layers, or aesthetic appearance alone. Focus on functional completeness of coverage. If the connector or its protection is not clearly visible, mark N_A.
+  - For **sealant compounds**: accept the method even if applied unevenly or with minor gaps, as long as the connector and adjacent jacket are covered and no significant exposed metal or cable is visible. Presence of material outweighs perfect application.
+  Do not fail based on material color, number of layers, or aesthetic appearance. If the connector or its protection is not clearly visible, mark N_A.
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
 - Cable labeling:
   - If the cable end is **NOT** encapsulated in a waterproofing system (exposed connector and cable), a yellow ID tag must be physically attached to the cable near the termination. Labels printed/stamped directly on the cable jacket are also acceptable.

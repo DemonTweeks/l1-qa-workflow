@@ -78,7 +78,7 @@ analyze_image(
 1. **Mark N_A when not visible**: If a component (heat shrink, breaker tag, grounding kit, waterproofing, etc.) is NOT VISIBLE in the photo (due to angle, distance, or framing), mark N_A — NEVER FAIL for unverifiable items. FAIL requires visible evidence.
 
 2. **Labeling**: If a required label is **not visible** in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label. Acceptable physical labels include:
-   - Yellow ID tags attached to cables
+   - ID tags (yellow or white) attached to cables
    - Labels printed/stamped directly on cable jackets or equipment surfaces
    - Alphabet stencil or stamped characters on antennas/equipment
    - Integrated labeling within waterproof management systems

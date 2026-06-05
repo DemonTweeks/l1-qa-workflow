@@ -126,11 +126,11 @@ spawn_agent(
   If the labeling is not legible or the cable end/termination is not visible, mark N_A. Verify across the Before/After pair - one end per photo is acceptable.
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
-- Physical yellow ID tags on every visible cable end: verify that the cable end shown in the photo has a legible physical yellow tag attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. If a cable end is not visible/not in frame, mark N_A for that end.
+- Physical ID tags (yellow or white) on every visible cable end: verify that the cable end shown in the photo has a legible physical tag attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. If a cable end is not visible/not in frame, mark N_A for that end.
 - Cables securely seated in ports (verify if ports and cable connection are visible; if not visible, mark N_A)
 - Neat bundling with secure cable management; black cable clamps are preferred but not mandatory when cables are otherwise well-supported and routed neatly. If bundling is visible, verify it is tidy; if not visible, mark N_A.
 - **Cross-check:** FE cable labeling should roughly align with IF cable labeling conventions (format may differ but should identify endpoints consistently). Inconsistent naming across cable types in the same installation warrants N_A review, not automatic FAIL.
-- **Port condition:** when visible, verify ports are undamaged and connector fully inserted. If ports are hidden, N_A is acceptable.
+- **Port condition:** when visible, verify ports are undamged and connector fully inserted. If ports are hidden, N_A is acceptable.
 
 **MW/ODU (2.11/2.12, 3.12/3.13):**
 - ODU securely mounted, captive screws diagonal (if ODU and screws visible, verify secure mounting and diagonal screw placement; if not fully visible, mark N_A)

@@ -114,6 +114,7 @@ spawn_agent(
   - Self-amalgamating tape or rubber sealing tape that provides complete coverage
   - Moulded rubber boots or boots with integrated sealing
   - Potting or epoxy encapsulation
+  - Sealant compounds (e.g., white sealing material)
   - Any other method that fully encloses the connector termination and prevents water entry
 
   **Key check:** Verify that no metal parts, cable jackets, or connection points are exposed to the environment. The waterproofing material should fully cover the connector and a short length of the adjacent cable.

@@ -77,13 +77,19 @@ analyze_image(
 
 1. **Mark N_A when not visible**: If a component (heat shrink, breaker tag, grounding kit, waterproofing, etc.) is NOT VISIBLE in the photo (due to angle, distance, or framing), mark N_A — NEVER FAIL for unverifiable items. FAIL requires visible evidence.
 
-2. **Labeling**: If a required label is **not visible** in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label. Acceptable physical labels include:
+2. **Labeling**: For each component, apply rules based on termination type:
+   - **Non-waterproofed cable ends** (exposed connector and jacket): require a physical ID tag (yellow or white) or jacket printing/stamping. If a required label is **not visible** in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label.
+   - **Waterproofed cable ends** (fully encapsulated with heat shrink, tape, moulded boot, sealant, etc.): **no label required** — focus on waterproofing completeness. Mark N_A for labeling if the encapsulation is visible; FAIL only if the waterproofing itself is inadequate (exposed parts).
+   - **Antennas/equipment**: require alphabet stencil or stamped characters. If the label is not visible in the current image, mark N_A — it may be visible in another image of the same section. FAIL only if the component is clearly shown without any label.
+   - **Integrated labeling** (text moulded into waterproofing) is acceptable when present but not mandatory for waterproofed cables.
+
+   Acceptable physical labels include:
    - ID tags (yellow or white) attached to cables
    - Labels printed/stamped directly on cable jackets or equipment surfaces
-   - Alphabet stencil or stamped characters on antennas/equipment
-   - Integrated labeling within waterproof management systems
+   - Alphabet stencil or stamped characters
+
    **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels.
-   Extra text, format variations, or alternative naming styles on a correct physical label are NOT defects. A single photo shows one component; verify only labels visible in that photo — do not fail because another view/part is missing (pair-level or section-level consistency handled at orchestrator level).
+   Extra text, format variations, or alternative naming styles on a correct physical label are NOT defects. A single photo shows one component; verify only what's visible in that photo.
 
 3. **Connection quality**: When visible, verify secure connection (no slack, proper seating, tight terminations). If the connection point is obscured, N_A is acceptable. Do not fail for cable routing style differences (zip ties vs clamps) if cables are neatly managed and supported.
 

@@ -122,9 +122,9 @@ spawn_agent(
 - Grounding kit 0.5-1m from entry points (if entry point visible, verify distance; if not visible, mark N_A)
 - Cable labeling:
   - If the cable end is **NOT** encapsulated in a waterproofing system (exposed connector and cable), a yellow ID tag must be physically attached to the cable near the termination. Labels printed/stamped directly on the cable jacket are also acceptable.
-  - If the cable end is encapsulated in a waterproofing system (e.g., heat shrink, molded boot), the labeling may be integrated into the waterproofing (printed text on heat shrink, molded markers). In this case, a separate yellow tag on the bare cable is **not required**.
+  - If the cable end **IS** encapsulated in a waterproofing system (heat shrink, molded boot, sealant, etc.), **no label check is required** — the waterproofing itself is the focus. Do not fail for missing tags on fully encapsulated connectors. If the encapsulation is visible and complete, mark N_A for labeling; verify waterproofing coverage separately.
   - **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as valid labels.
-  If the labeling is not legible or the cable end/termination is not visible, mark N_A. Verify across the Before/After pair - one end per photo is acceptable.
+  If the cable end/termination is not visible, mark N_A. Verify across the Before/After pair - one end per photo is acceptable.
 
 **FE Cable (2.9/2.10, 3.10/3.11):**
 - Physical ID tags (yellow or white) on every visible cable end: verify that the cable end shown in the photo has a legible physical tag attached to the cable near the termination. **Do NOT count watermarks, metadata overlays, on-screen annotations, or IEPMS label stamps** as cable labels. Only physical tags attached to the cable itself qualify. If a cable end is not visible/not in frame, mark N_A for that end.

@@ -98,7 +98,7 @@ spawn_agent(
 
 **IDU Power (2.3/2.4, 3.4/3.5):**
 - Tubular terminals at breaker, cable lugs at busbar
-- Breakers labeled with yellow ID tags when visible. If tags are in frame, verify they are readable. If the breaker is visible but no yellow ID tag is present, mark N_A (tags may be shown in other section images). If the breaker label area is not shown, mark N_A.
+- Breakers must have a yellow ID tag attached for circuit identification. The tag may be on any surface of the breaker (front, side, bottom) as long as it is clearly visible and readable in the photo. If the breaker is visible but no yellow ID tag can be seen, mark N_A (the tag may be visible in another image). If the breaker itself is not shown, mark N_A.
 - Power cables should have clear functional labels such as MAIN/STBY or equivalent role identifiers; if the cable end is visible and the tag clearly indicates its purpose, do not fail because the exact text differs. If the exact connection point is not visible, mark N_A rather than FAIL.
 
 **IDU Grounding (2.5/2.6, 3.6/3.7):**

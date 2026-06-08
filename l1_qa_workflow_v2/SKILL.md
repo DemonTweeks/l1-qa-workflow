@@ -102,7 +102,7 @@ spawn_agent(
 - Power cables should have clear functional labels such as MAIN/STBY or equivalent role identifiers; if the cable end is visible and the tag clearly indicates its purpose, do not fail because the exact text differs. If the exact connection point is not visible, mark N_A rather than FAIL.
 
 **IDU Grounding (2.5/2.6, 3.6/3.7):**
-- Yellow-green grounding cable: if visible, verify it is yellow-green and properly installed; if not visible, mark N_A
+- Yellow-green grounding cable: if visible, verify it is a yellow-green cable (typically yellow with a green stripe, or green/yellow spiral). Accept a cable that is predominantly yellow if a green stripe or tint is clearly present. Lighting and angle may affect color perception; if the cable appears yellow but there is ambiguity about a green component, mark N_A rather than FAIL. If the cable is clearly solid yellow without any green indication, FAIL. If the grounding cable is not visible, mark N_A.
 - Cable lugs at visible terminations (if termination visible, verify lug present; if termination not visible in photo, mark N_A)
 - Termination method proper and secure: bare screw lugs on hardware are acceptable; heat shrink or other insulation protection is acceptable when used but not mandatory for screw lug connections; if termination is unclear or angle doesn't allow verification, mark N_A
 - Labels visible where the IDU or busbar end is shown (labels should be visible at connection point if shown in photo; if angle/lighting prevents visibility, mark N_A)

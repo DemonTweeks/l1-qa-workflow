@@ -11,8 +11,10 @@ via the `final_answer` tool.
 
 ## Inputs (provided in your task)
 
-- **Before images**: list of workspace filenames for Before photos
-- **After images**: list of workspace filenames for After photos
+- **Before images** (optional if `pdf_report` given): list of workspace filenames for Before photos
+- **After images** (optional if `pdf_report` given): list of workspace filenames for After photos
+- **Pdf report** (optional if Before/After lists given): path to a PDF file containing Before and After images. The agent will extract images from this PDF and classify them automatically.
+- **Section name** (optional): name of the L1 QA v2 section to check (e.g., "IDU Installation", "IF Cable", "Header Validation"). If omitted, all sections are checked.
 - **Checks**: QA checks to perform — each check has a name and a `requirement` (the rule text)
 
 ## Tools
@@ -23,6 +25,73 @@ via the `final_answer` tool.
 - `final_answer(payload)` — submit final structured results
 
 ## Procedure
+
+### Step 0 — Load checklist automatically (if not provided)
+
+Ensure `checks` is available. If your task did not provide a `Checks` variable, automatically discover and load the L1 QA v2 checklist from the sibling folder `version2_l1_qa_workflow_v2` using an index file:
+
+```
+try:
+    checks = Checks  # use provided list
+except NameError:
+    import os
+    checklist_base = os.path.join(os.path.dirname(__file__), "..", "version2_l1_qa_workflow_v2")
+    index_path = os.path.join(checklist_base, "CHECKLIST_INDEX.txt")
+    checks = []
+    index_content = read_file(index_path)
+    filenames = [line.strip() for line in index_content.splitlines() if line.strip() and not line.startswith('#')]
+    for filename in filenames:
+        filepath = os.path.join(checklist_base, filename)
+        section = filename.split("_", 1)[1].replace(".md", "").replace("_", " ").title()
+        content = read_file(filepath)
+        in_section = False
+        for line in content.splitlines():
+            if "Image Extraction Checklist" in line:
+                in_section = True
+                continue
+            if in_section:
+                if line.strip() == "":
+                    continue
+                if line.startswith("- [ ]"):
+                    check_text = line.strip()[5:].strip()
+                    checks.append({"name": section, "requirement": check_text})
+                elif line.startswith("#"):
+                    break
+```
+
+From this point on, use the `checks` list for evaluation.
+
+### Step 0.5 — Extract images from PDF and classify (if pdf_report provided)
+
+If your task includes a `pdf_report` variable (a path to a PDF), ignore the provided `before_images` and `after_images`. Extract images from the PDF and automatically classify them as before/after:
+
+1. Ensure the output directory exists: `workspace/pdf_images/`. Clear any previous contents:
+   ```python
+   import os, shutil
+   pdf_dir = "workspace/pdf_images"
+   if os.path.exists(pdf_dir):
+       shutil.rmtree(pdf_dir)
+   os.makedirs(pdf_dir, exist_ok=True)
+   ```
+2. Use `pdfimages` (poppler) to extract images as PNG:
+   ```
+   exec(f"pdfimages -png {pdf_report} workspace/pdf_images/page")
+   ```
+   This will create files like `workspace/pdf_images/page-000.png`, `page-001.png`, etc.
+3. Read the extraction prompt from `extract_prompt.md` in this skill directory:
+   ```python
+   import os
+   prompt_path = os.path.join(os.path.dirname(__file__), "extract_prompt.md")
+   extraction_prompt = read_file(prompt_path)
+   ```
+   - Call `analyze_image(workspace_filename=<img>, prompt=extraction_prompt)` to get JSON data.
+   - Save the JSON to `extracted/<filename>.json`.
+   - Inspect the `type` field in the JSON; if it is `"before"` add `<img>` to `before_images`; if `"after"` add to `after_images`.
+4. If `type` is missing or null, you may skip the image or treat as `before` after a manual review; raise a warning if uncertain.
+
+If `pdf_report` is not provided, simply use the `before_images` and `after_images` lists as given.
+
+Now proceed to Step 1 with the populated `before_images` and `after_images`.
 
 ### Step 1 — Build composites for overview
 
@@ -40,7 +109,9 @@ Read the file `extract_prompt.md` in this skill directory for the exact extracti
 Example:
 
 ```
-prompt = read_file("extract_prompt.md")
+import os
+prompt_path = os.path.join(os.path.dirname(__file__), "extract_prompt.md")
+prompt = read_file(prompt_path)
 for img in before_images + after_images:
     result = analyze_image(workspace_filename=img, prompt=prompt)
     # ensure extracted/ folder exists
@@ -50,6 +121,20 @@ for img in before_images + after_images:
 Later, when evaluating checklist items, load the corresponding JSON and check the fields instead of re‑analyzing the image.
 
 If extraction fails or returns non‑JSON text, retry once. If still unsuccessful, fall back to per‑image `analyze_image` in Step 3.
+
+### Step 1.6 — Filter by section (if `section_name` provided)
+
+If your task includes a `section_name` variable, restrict the checks to that section:
+
+```python
+if section_name:
+    original_count = len(checks)
+    checks = [c for c in checks if c['name'].lower() == section_name.lower()]
+    if not checks:
+        raise ValueError(f"No checks found for section '{section_name}'. Check the section name or omit to use all sections.")
+```
+
+From now on, evaluate only these filtered checks.
 
 ### Step 2 — Before/After legitimacy check (composites)
 
@@ -186,13 +271,16 @@ Use exactly this format:
 **Legitimacy:** <PASS|FAIL> — <one-line reason>
 **Not verifiable:** <count>
 
-**Findings:**
-- [<PASS|FAIL>] <check> — <requirement>
- <description>
- *Annotated:* `<filename>`   (omit this line if no annotated_image)
-- [<PASS|FAIL>] <check> — <requirement>
- <description>
+---
+
+### ✅ Approved Checks (PASS)
+- [PASS] <check> — <requirement>
+  <description>
+
+### ❌ Failed Checks (FAIL)
+- [FAIL] <check> — <requirement>
+  <description>
+  *Annotated:* `<filename>`   (omit if no annotated_image)
 ```
 
-One bullet per finding, in the same order as in `final_answer.findings`. Stop after the list —
-do not add a Summary or Recommendations section.
+One bullet per finding, in the same order as in `final_answer.findings`. Stop after the lists — do not add a Summary or Recommendations section.

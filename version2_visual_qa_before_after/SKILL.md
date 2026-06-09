@@ -228,7 +228,7 @@ annotate_regions(
 
 Severity colors: Critical=red, Major=orange, Minor=yellow.
 Do NOT use `silent=true` — let annotated images appear in conversation.
-**Capture each annotated image's filename — you will need it on the matching finding.**
+**Capture each annotated image's filename and the source After image filename — you will need them on the matching finding.**
 
 ### Step 4 — Submit findings via `final_answer`
 
@@ -247,6 +247,7 @@ For every check you actually performed (PASS or FAIL), include one entry in `fin
 - `annotated_image` — filename of the annotated image showing this finding. Set this on FAIL
  findings that were drawn via `annotate_regions`. Omit on PASS findings and on FAIL items
  that couldn't be localized.
+- `source_image` — filename of the original After image that was analyzed. Set this on FAIL findings to identify the After image they originated from. Omit only if the source image is unknown.
 
 For checks the photo couldn't verify (out of frame, angle, etc.), do NOT add them to `findings`.
 Just increment `not_verifiable_count`.
@@ -281,6 +282,7 @@ Use exactly this format:
 - [FAIL] <check> — <requirement>
   <description>
   *Annotated:* `<filename>`   (omit if no annotated_image)
+  *Source:* `<filename>`   (omit if no source_image)
 ```
 
 One bullet per finding, in the same order as in `final_answer.findings`. Stop after the lists — do not add a Summary or Recommendations section.

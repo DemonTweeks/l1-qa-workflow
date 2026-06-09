@@ -196,47 +196,62 @@ spawn_agent(
 
 ### Step 6: Present Results
 
-After ALL sub-agents complete, present a structured summary message.
+After ALL sub-agents complete, aggregate their results and generate a final markdown summary.
 
-**How to read sub-agent results:** each visual QA sub-agent now returns its findings as a
-structured payload via the `final_answer` tool. You will see this payload in the spawn_agent
-result under `data.final_answer` with this shape:
+**Reading sub-agent results:** Each visual QA sub-agent returns a structured payload via the `final_answer` tool. You will find it in the spawn_agent result under `data.final_answer`. The payload includes:
 
-```json
-{
- "section": "2.1/2.2 IDU Installation",
- "status": "FAIL",
- "severity": "Major",
- "legitimacy": {"status": "PASS", "reason": "..."},
- "findings": [
- {
- "check": "Cable labeling",
- "requirement": "All visible cable ends must be labeled with yellow tags identifying NE and FE site IDs",
- "status": "FAIL",
- "severity": "Major",
- "description": "FE port cable end has no label visible",
- "annotated_image": "after_2_1_annotated.png"
- },
- ...
- ],
- "not_verifiable_count": 1
-}
-```
+- `section`: section name (e.g., "2.1/2.2 IDU Installation")
+- `status`: overall status for that section (PASS/FAIL)
+- `severity`: highest severity among FAIL findings (or "None")
+- `legitimacy`: object with `status` (PASS/FAIL/N_A) and `reason`
+- `findings[]`: array of individual check results
+- `not_verifiable_count`: count of checks that could not be verified
 
-Use the `requirement` field to cite the exact rule that was violated for each FAIL.
+Each finding object may contain:
+- `check`: short name of the check
+- `requirement`: full rule text
+- `status`: PASS/FAIL/N_A
+- `severity`: (for FAIL) Critical/Major/Minor
+- `description`: observation
+- `annotated_image`: filename of the annotated image (only for FAIL with bbox)
+- `source_image`: filename of the original source image (optional)
 
-Present:
-1. **Overall status**: PASS or REJECT
-2. **Header validation**: pass/fail + issues
+The annotated images are already posted to the conversation by the sub-agents; you only need to reference their filenames in the final report.
+
+**Construct the final report:**
+
+Produce a markdown message with the following sections in this exact order:
+
+1. **Overall status**: `PASS` or `REJECT`
+2. **Header validation**: `PASS` or `FAIL` with a brief explanation of any issues.
 3. **Section-by-section results table**:
- | Section | Pair | Status | Severity | Failed checks (with rule cited) |
- For all Near End and Far End pairs/NMS sections.
-4. **Missing sections** (if any)
-5. **Severity summary**: X Critical, Y Major, Z Minor
-6. **Rejection reasons** (if REJECT) — cite the `requirement` text from the relevant findings
+   Create a markdown table with these column headers:
+   
+   | Section | Pair | Status | Severity | Failed checks (with rule cited) |
+   
+   For each relevant section (Near End and Far End pairs, plus NMS sections), add a row.
+   In the "Failed checks" cell, list **each FAIL finding** using the exact format below. Separate multiple findings with `<br>` line breaks.
 
-The annotated images for failed items are already posted by the sub-agents and the filenames
-are recorded on each finding. You can list them inline with the corresponding rule violation.
+   Format per FAIL finding:
+   ```
+   - <check> — <requirement>
+     <description>
+     *Annotated:* <annotated_image filename>
+     *Source:* <source_image filename>   (include this line only if source_image is present)
+   ```
+   If a section has no FAIL findings, leave the cell empty or write "None".
+
+4. **Missing sections**: List any expected sections that were not found in the PDF report (e.g., "2.4 IDU Power (Far End) missing").
+5. **Severity summary**: Count of FAIL findings by severity, e.g., "Critical: 0, Major: 2, Minor: 1".
+6. **Rejection reasons** (only if Overall status is `REJECT`): For each section that has FAIL findings, reproduce the `requirement` text of each FAIL finding, one per line, prefixed by the section name. Do not include descriptions or image references here—just the rule text.
+
+**Example of a row with a FAIL finding:**
+
+| Section | Pair | Status | Severity | Failed checks (with rule cited) |
+|---------|------|--------|----------|---------------------------------|
+| 2.1/2.2 IDU Installation | Near End | FAIL | Major | - Cable labeling — All visible cable ends must be labeled with yellow tags identifying NE and FE site IDs<br>  FE port cable end has no label visible<br>  *Annotated:* after_2_1_annotated.png<br>  *Source:* after_2_1.png |
+
+**Important:** The annotated images must be referenced inline within each finding (as shown), not just listed separately. This ensures users can immediately identify which image supports each failure. Always include the `*Annotated:*` line for every FAIL finding that has an `annotated_image`. Include the `*Source:*` line when `source_image` is provided.
 
 ## Rejection Criteria (Immediate REJECT)
 - Missing mandatory photo sections (IDU, Power, Grounding, Cable, ODU Before/After)

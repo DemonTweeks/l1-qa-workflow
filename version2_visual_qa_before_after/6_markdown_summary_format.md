@@ -9,11 +9,12 @@ After `final_answer` returns, send ONE short markdown message:
 **Not verifiable:** <count>
 
 **Findings:**
-- [<PASS|FAIL>] <check> — <requirement>
+- [PASS] <check> — <requirement>
+ <description>
+- [FAIL] <check> — <requirement>
  <description>
  *Annotated:* `<filename>`   (omit this line if no annotated_image)
-- [<PASS|FAIL>] <check> — <requirement>
- <description>
+ *Source:* `<filename>`   (omit this line if no source_image)
 ```
 
 ### To Do's

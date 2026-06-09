@@ -13,8 +13,8 @@ After `final_answer` returns, send ONE short markdown message:
  <description>
 - [FAIL] <check> — <requirement>
  <description>
- *Annotated:* `<filename>`   (omit this line if no annotated_image)
- *Source:* `<filename>`   (omit this line if no source_image)
+ *Annotated:* `<annotated_image>`   (required when present)
+ *Source:* `<source_image>`   (required when present)
 ```
 
 ### To Do's

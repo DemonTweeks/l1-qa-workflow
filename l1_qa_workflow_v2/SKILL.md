@@ -237,7 +237,6 @@ Produce a markdown message with the following sections in this exact order:
    - <check> — <requirement>
      <description>
      *Annotated:* <annotated_image filename>
-     *Source:* <source_image filename>   (include this line only if source_image is present)
    ```
    If a section has no FAIL findings, leave the cell empty or write "None".
 

@@ -13,6 +13,7 @@
     - `severity`: only for FAIL (Critical/Major/Minor)
     - `description`: one‑line observation
     - `annotated_image`: filename for FAIL findings with bbox; omit for PASS or non‑localizable FAIL
+    - `source_image`: filename of the original After image analyzed; set on FAIL findings; omit only if the source image is unknown
   - [ ] `not_verifiable_count`: number of checks marked N_A (not added to `findings`)
 - [ ] For every FAIL finding that can be localized, call `annotate_regions` with bbox and severity color (Critical=red, Major=orange, Minor=yellow)
 - [ ] Capture annotated image filenames and include them in corresponding `findings`

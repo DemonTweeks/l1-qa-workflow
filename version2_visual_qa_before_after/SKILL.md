@@ -163,6 +163,8 @@ This is a text-only assessment — no annotation needed. Just checking legitimac
 
 ### Step 3 — Quality inspection (individual After photos)
 
+**For IF Cable sections (2.7/2.8, 3.8/3.9):** Only evaluate the explicit items from the provided checks (bending radius, waterproofing coverage, grounding kit distance, and labeling when applicable). Ignore any observations about cable bundling, crossing, or separation; these are not failure criteria for IF Cable.
+
 If you extracted structured data in Step 1.5, evaluate checks against that data. Otherwise,
 for EACH After image, call `analyze_image` individually with `annotate=true`:
 

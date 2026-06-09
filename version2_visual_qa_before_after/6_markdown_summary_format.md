@@ -9,9 +9,9 @@ After `final_answer` returns, send ONE short markdown message:
 **Not verifiable:** <count>
 
 **Findings:**
-- [PASS] <check> — <requirement>
+- ✅ <check> — <requirement>
  <description>
-- [FAIL] <check> — <requirement>
+- ❌ <check> — <requirement>
  <description>
  *Annotated:* `<annotated_image>`   (required when present)
  *Source:* `<source_image>`   (required when present)

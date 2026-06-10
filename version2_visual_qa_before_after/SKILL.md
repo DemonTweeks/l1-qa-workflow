@@ -44,19 +44,21 @@ except NameError:
         filepath = os.path.join(checklist_base, filename)
         section = filename.split("_", 1)[1].replace(".md", "").replace("_", " ").title()
         content = read_file(filepath)
-        in_section = False
+        current_heading = "General"
         for line in content.splitlines():
-            if "Image Extraction Checklist" in line:
-                in_section = True
+            # Track level-3 headings (### ...) as categories
+            if line.startswith("### "):
+                current_heading = line[4:].strip()
                 continue
-            if in_section:
-                if line.strip() == "":
-                    continue
-                if line.startswith("- [ ]"):
-                    check_text = line.strip()[5:].strip()
-                    checks.append({"name": section, "requirement": check_text})
-                elif line.startswith("#"):
-                    break
+            if line.strip() == "":
+                continue
+            stripped = line.lstrip()
+            if stripped.startswith("- [ ]"):
+                check_text = stripped[5:].strip()
+                checks.append({"name": current_heading, "requirement": check_text})
+            # Stop at the next level-2 or level-1 heading
+            if line.startswith("##") or line.startswith("#"):
+                break
 ```
 
 From this point on, use the `checks` list for evaluation.
@@ -276,15 +278,21 @@ Use exactly this format:
 
 ---
 
-### ✅ Approved Checks (PASS)
-- [PASS] <check> — <requirement>
-  <description>
+### 📋 Compliance Table
 
-### ❌ Failed Checks (FAIL)
-- [FAIL] <check> — <requirement>
-  <description>
-  *Annotated:* `<filename>`   (omit if no annotated_image)
-  *Source:* `<filename>`   (omit if no source_image)
+| Category | Requirement (To Do / To Don't) | Status | Evidence / Observation |
+|----------|--------------------------------|--------|------------------------|
+
 ```
 
-One bullet per finding, in the same order as in `final_answer.findings`. Stop after the lists — do not add a Summary or Recommendations section.
+Then, for each finding from `final_answer.findings` (in order), add one table row:
+
+- **Category**: the `check` value
+- **Requirement**: the `requirement` string
+- **Status**: show ✅ for `PASS`, ❌ for `FAIL`, ⚠️ for `N_A` (or blank)
+- **Evidence / Observation**:
+  - For `PASS`: "Compliant" or the `description`
+  - For `FAIL`: include `description` and on new lines `*Annotated:* <file>` and `*Source:* <file>` when present
+  - For `N_A`: "Not verifiable"
+
+Stop after the table — do not add a Summary or Recommendations section.

@@ -9,34 +9,19 @@ After `final_answer` returns, send ONE short markdown message. Structure:
 
 ---
 
-### ✅ Checks (PASS)
+### 📋 Compliance Table
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| <check name> | ✅ PASS | <description> |
-| <check name> | ✅ PASS | <description> |
+| Category | Requirement (To Do / To Don't) | Status | Evidence / Observation |
+|----------|--------------------------------|--------|------------------------|
 
-### ❌ Checks (FAIL)
+For each finding (in the order returned), add one row:
 
-| Check | Status | Notes | Annotated | Source |
-|-------|--------|-------|-----------|--------|
-| <check name> | ❌ FAIL | <description> | `<annotated_image>` | `<source_image>` |
-| <check name> | ❌ FAIL | <description> | `<annotated_image>` | `<source_image>` |
+- **Category**: the `check` value from the finding
+- **Requirement**: the full `requirement` text (should already include "To Do:" or "To Don't:" prefix)
+- **Status**: show ✅ for PASS, ❌ for FAIL, ⚠️ for N/A (if any)
+- **Evidence / Observation**:
+  - For PASS: a brief note like "Compliant" or the description
+  - For FAIL: the `description` plus new lines `*Annotated:* <file>` and `*Source:* <file>` when present
+  - For N/A: "Not verifiable"
 
----
-
-### Checklist Summary (To Do's / To Don'ts)
-- **To Do's** (pass automatically when all checks clear):
-  - ✅ All checks listed above; no separate To Do list
-- **To Don'ts** (violations turn into FAILs above):
-  - ✅ No violations detected in this section
-
-> Note: N_A items (not verifiable) are excluded from the tables; they don't pass or fail.
-
-### Instructions (for agent)
-- Fill the tables in the exact order findings appear in `final_answer.findings`.
-- Split findings into PASS and FAIL tables.
-- For each FAIL, include both `Annotated` and `Source` columns with the filenames.
-- Keep descriptions concise (one line).
-- After tables, add the Checklist Summary.
-- Stop. Do not add narrative paragraphs, Summary, or Recommendations.
+Stop after the table. Do not add bullet lists or extra sections.

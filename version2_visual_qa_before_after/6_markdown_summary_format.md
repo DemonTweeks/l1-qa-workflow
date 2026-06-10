@@ -36,6 +36,7 @@ After `final_answer` returns, send ONE short markdown message. Structure:
 ### Instructions (for agent)
 - Fill the tables in the exact order findings appear in `final_answer.findings`.
 - Split findings into PASS and FAIL tables.
-- For each FAIL, include both `*Annotated:*` and `*Source:*` lines in the table cell (rendered as code spans). Keep description one-line.
-- After tables, add the Checklist Summary indicating no separate To Do/To Don't checklists are needed; all criteria are covered in the check tables.
+- For each FAIL, include both `Annotated` and `Source` columns with the filenames.
+- Keep descriptions concise (one line).
+- After tables, add the Checklist Summary.
 - Stop. Do not add narrative paragraphs, Summary, or Recommendations.

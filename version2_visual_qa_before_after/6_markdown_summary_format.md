@@ -1,28 +1,41 @@
 # Markdown Summary Format
 
-After `final_answer` returns, send ONE short markdown message:
+After `final_answer` returns, send ONE short markdown message. Structure:
 
-```
 **Section:** <section>
 **Status:** <PASS|FAIL>   **Severity:** <Critical|Major|Minor|None>
 **Legitimacy:** <PASS|FAIL> — <one-line reason>
 **Not verifiable:** <count>
 
-**Findings:**
-- ✅ <check> — <requirement>
- <description>
-- ❌ <check> — <requirement>
- <description>
- *Annotated:* `<annotated_image>`   (required when present)
- *Source:* `<source_image>`   (required when present)
-```
+---
 
-### To Do's
-- [ ] Use exactly the above structure
-- [ ] List findings in the same order as in `final_answer.findings`
-- [ ] Stop after the list; do not add Summary or Recommendations
+### ✅ Checks (PASS)
 
-### To Don'ts
-- [ ] Do NOT add extra narrative paragraphs
-- [ ] Do NOT reorder findings
-- [ ] Do NOT include N_A items in the markdown summary
+| Check | Status | Notes |
+|-------|--------|-------|
+| <check name> | ✅ PASS | <description> |
+| <check name> | ✅ PASS | <description> |
+
+### ❌ Checks (FAIL)
+
+| Check | Status | Notes | Annotated | Source |
+|-------|--------|-------|-----------|--------|
+| <check name> | ❌ FAIL | <description> | `<annotated_image>` | `<source_image>` |
+| <check name> | ❌ FAIL | <description> | `<annotated_image>` | `<source_image>` |
+
+---
+
+### Checklist Summary (To Do's / To Don'ts)
+- **To Do's** (pass automatically when all checks clear):
+  - ✅ All checks listed above; no separate To Do list
+- **To Don'ts** (violations turn into FAILs above):
+  - ✅ No violations detected in this section
+
+> Note: N_A items (not verifiable) are excluded from the tables; they don't pass or fail.
+
+### Instructions (for agent)
+- Fill the tables in the exact order findings appear in `final_answer.findings`.
+- Split findings into PASS and FAIL tables.
+- For each FAIL, include both `*Annotated:*` and `*Source:*` lines in the table cell (rendered as code spans). Keep description one-line.
+- After tables, add the Checklist Summary indicating no separate To Do/To Don't checklists are needed; all criteria are covered in the check tables.
+- Stop. Do not add narrative paragraphs, Summary, or Recommendations.

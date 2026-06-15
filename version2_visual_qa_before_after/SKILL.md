@@ -168,11 +168,11 @@ This is a text-only assessment — no annotation needed. Just checking legitimac
 **For IF Cable sections (2.7/2.8, 3.8/3.9):** Only evaluate the explicit items from the provided checks (bending radius, waterproofing coverage, grounding kit distance, and labeling when applicable). Ignore any observations about cable bundling, crossing, or separation; these are not failure criteria for IF Cable.
 
 If you extracted structured data in Step 1.5, evaluate checks against that data. Otherwise,
-for EACH After image, call `analyze_image` individually with `annotate=true`:
+for EACH image in `before_images` and `after_images` (if provided), call `analyze_image` individually with `annotate=true`:
 
 ```
 analyze_image(
- workspace_filename=<after_image>,
+ workspace_filename=<image>,
  annotate=true,
  annotation_schema={
  "findings": [{
@@ -251,7 +251,8 @@ For every check you actually performed (PASS or FAIL), include one entry in `fin
 - `annotated_image` — filename of the annotated image showing this finding. Set this on FAIL
  findings that were drawn via `annotate_regions`. Omit on PASS findings and on FAIL items
  that couldn't be localized.
-- `source_image` — filename of the original After image that was analyzed. Set this on FAIL findings to identify the After image they originated from. Omit only if the source image is unknown.
+- `side` — `'before'` or `'after'` indicating which image set this finding comes from.
+- `source_image` — filename of the original image that was analyzed. Set this on FAIL findings to identify the image they originated from. Omit only if the source image is unknown.
 
 For checks the photo couldn't verify (out of frame, angle, etc.), do NOT add them to `findings`.
 Just increment `not_verifiable_count`.

@@ -61,38 +61,42 @@ Produce a markdown message with the following sections in this exact order:
 1. **Overall status**: `PASS` or `REJECT`
 2. **Header validation**: `PASS` or `FAIL` with a brief explanation of any issues.
 
-3. **Section compliance tables**: For each relevant section (from Step 2), do:
-   - Read the section's checklist file (use `CHECKLIST_INDEX.txt` to map section to filename). The file contains subsections (e.g., "To Do's", "To Don'ts", "Image Extraction Checklist (After photos)"). In reading order, extract each bullet item (`- [ ] ...`) and record:
-        * `category`: the exact subsection heading under which the bullet appears
-        * `requirement`: the bullet text (strip `- [ ] `)
-   - Collect the sub-agent findings for this section (from the aggregated `final_answer` results).
-   - For each extracted checklist item (in file order):
-        * Find a matching finding where `finding.requirement` exactly equals the `requirement`.
-        * If found: `status` = finding.status (`PASS`/`FAIL`), `severity` = finding.severity (for FAIL), `description` = finding.description, `annotated` = finding.annotated_image, `source` = finding.source_image.
-        * If not found: `status` = `N/A`, `evidence` = "Not verified"
-   - Build a markdown table for the section with heading `### <Section name> (<Pair>) Compliance Table` (if pair known) or just `### <Section name> Compliance Table`.
+3. **Section compliance tables by pair**:
+   - Group sections into Before/After pairs using the mapping from Step 2. For each pair (e.g., 2.5/2.6), do:
+     a) Determine pair heading: `Summary of Sections <before_num>/<after_num> Analysis (<Section Name>)` (use the human-friendly section name from the checklist filename, e.g., "IDU Grounding").
+     b) Compute an **Overall Assessment** line for this pair based on both sections' findings:
+        - If any FAIL in BEFORE or AFTER: `REJECT` with brief reason
+        - Else if any N/A in critical checks: `CONDITIONAL PASS`
+        - Else: `PASS`
+        Use wording similar to: `Overall Assessment: Mixed Results - Some Issues Identified` or `Overall Assessment: PASS` as appropriate.
+     c) Build a combined compliance table for the pair with columns:
 
-     Table columns:
-     | Category | Requirement (To Do / To Don't) | Status | Evidence / Observation |
+        | Requirement | BEFORE Status | AFTER Status | Details |
 
-     For each row:
-     - Category: the `category` from the checklist (e.g., "To Do's")
-     - Requirement: the full requirement text
-     - Status: show ✅ for PASS, ❌ for FAIL, ⚠️ for N/A (or blank if preferred)
-     - Evidence/Observation:
-         • For PASS: "Compliant" (or the finding description if more informative)
-         • For FAIL: include the description, and on new lines `*Annotated:* <file>` and `*Source:* <file>` when present
-         • For N/A: "Not verifiable in provided images"
+        - Source requirements from the checklist file used for this pair (the file that covers both sections, e.g., `2.5-2.6_idu_grounding.md`). Extract bullets in order; track their `category` (the nearest `###` heading).
+        - For each requirement, take the sub-agent payload's `findings` array and separate it into `before_findings` (where `side == 'before'`) and `after_findings` (where `side == 'after'`). Then match the requirement text in each list separately to obtain the status and description for each side.
+        - BEFORE Status: use ✅ for PASS, ❌ for FAIL, ⚠️ for N/A, or blank if no finding.
+        - AFTER Status: same emoji mapping.
+        - Details: Combine information from both findings. If both exist, concatenate with a separator like `; AFTER: ...`. Prefer to include the finding `description`. For FAIL, also include `*Annotated:*` and `*Source:*` references. For N/A, keep brief.
+        Example cell: `BEFORE: Terminations secure but show significant rust/corrosion. AFTER: Clean, properly secured terminations`
+     d) After the table, include **Detailed Findings** sub-sections for deeper review:
+        - `#### <Before section> - BEFORE: <Section Name>`
+          Provide a bullet or paragraph summary of BEFORE-specific observations, referencing annotated images as needed. You may include image-level notes if helpful.
+        - `#### <After section> - AFTER: <Section Name>`
+          Provide a bullet or paragraph summary of AFTER-specific observations, referencing annotated images.
+   - Maintain order of pairs as they appear in the report.
 
-   Maintain the order of checklist items as they appear in the file.
+   For NMS sections (non-paired), keep the per-section table as originally designed.
 
 4. **Missing sections**: List any expected sections that were not found in the PDF report.
 5. **Severity summary**: Count of FAIL findings by severity across all sections, e.g., "Critical: 0, Major: 2, Minor: 1".
 6. **Rejection reasons** (only if Overall status is `REJECT`): For each section that has FAIL findings, list the `requirement` text of each FAIL finding, one per line, prefixed by the section name. Do not include descriptions or image references.
 
 ### Notes
-- Always include `*Annotated:*` and `*Source:*` for FAIL findings.
-- Keep the report structured; avoid narrative paragraphs.
+- Always include `*Annotated:*` and `*Source:*` for FAIL findings in the Details column.
+- Keep the report structured; avoid long narrative paragraphs. The example format you provided is the target.
+- For pairs, the Details column merges both sides into a single cell; keep it concise but informative.
+- The Detailed Findings sub-sections can be a bit more verbose and can reference specific images (e.g., `Image s2.5_img0.png:`).
 
 ### Tool restrictions
 - Use only the allowed tools (analyze_image, annotate_regions, list_workspace_files, build_composite, parse_pdf, final_answer, spawn_agent).

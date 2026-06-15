@@ -1,5 +1,5 @@
 ---
-name: visual-qa-before-after-v2
+name: version2_visual_qa_before_after
 description: Compare Before and After installation images to identify issues and annotate failures with bounding boxes (v2).
 ---
 

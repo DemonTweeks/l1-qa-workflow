@@ -58,45 +58,102 @@ Collect all sub-agent `final_answer` payloads.
 
 Produce a markdown message with the following sections in this exact order:
 
-1. **Overall status**: `PASS` or `REJECT`
-2. **Header validation**: `PASS` or `FAIL` with a brief explanation of any issues.
+#### 1. **Overall Status**
+Single line: `PASS` or `REJECT`
 
-3. **Section compliance tables by pair**:
-   - Group sections into Before/After pairs using the mapping from Step 2. For each pair (e.g., 2.5/2.6), do:
-     a) Determine pair heading: `Summary of Sections <before_num>/<after_num> Analysis (<Section Name>)` (use the human-friendly section name from the checklist filename, e.g., "IDU Grounding").
-     b) Compute an **Overall Assessment** line for this pair based on both sections' findings:
-        - If any FAIL in BEFORE or AFTER: `REJECT` with brief reason
-        - Else if any N/A in critical checks: `CONDITIONAL PASS`
-        - Else: `PASS`
-        Use wording similar to: `Overall Assessment: Mixed Results - Some Issues Identified` or `Overall Assessment: PASS` as appropriate.
-     c) Build a combined compliance table for the pair with columns:
+#### 2. **Header Validation**
+Single line: `PASS` or `FAIL` with brief explanation of any issues.
 
-        | Requirement | BEFORE Status | AFTER Status | Details |
+#### 3. **Results Summary Table**
+Create a single comprehensive table showing ALL sections at a glance:
 
-        - Source requirements from the checklist file used for this pair (the file that covers both sections, e.g., `2.5-2.6_idu_grounding.md`). Extract bullets in order; track their `category` (the nearest `###` heading).
-        - For each requirement, take the sub-agent payload's `findings` array and separate it into `before_findings` (where `side == 'before'`) and `after_findings` (where `side == 'after'`). Then match the requirement text in each list separately to obtain the status and description for each side.
-        - BEFORE Status: use ✅ for PASS, ❌ for FAIL, ⚠️ for N/A, or blank if no finding.
-        - AFTER Status: same emoji mapping.
-        - Details: Combine information from both findings. If both exist, concatenate with a separator like `; AFTER: ...`. Prefer to include the finding `description`. For FAIL, also include `*Annotated:*` and `*Source:*` references. For N/A, keep brief.
-        Example cell: `BEFORE: Terminations secure but show significant rust/corrosion. AFTER: Clean, properly secured terminations`
-     d) After the table, include **Detailed Findings** sub-sections for deeper review:
-        - `#### <Before section> - BEFORE: <Section Name>`
-          Provide a bullet or paragraph summary of BEFORE-specific observations, referencing annotated images as needed. You may include image-level notes if helpful.
-        - `#### <After section> - AFTER: <Section Name>`
-          Provide a bullet or paragraph summary of AFTER-specific observations, referencing annotated images.
-   - Maintain order of pairs as they appear in the report.
+| Section | Pair | Status | Severity | Failed Checks |
+|---------|------|--------|----------|---------------|
+| 2.1/2.2 | IDU Installation | PASS/FAIL/N_A | Critical/Major/Minor/None | <failed_check_1><br><failed_check_2> |
 
-   For NMS sections (non-paired), keep the per-section table as originally designed.
+**Table structure:**
+- **Section**: Section number and name (e.g., "2.1/2.2 IDU Installation")
+- **Pair**: "Near End" or "Far End" (or "NMS" for non-paired sections)
+- **Status**: Overall status for this section pair (PASS/FAIL/N_A)
+- **Severity**: Highest severity among FAIL findings (Critical/Major/Minor/None)
+- **Failed Checks**: List each FAIL finding as a bullet point with format:
+  ```
+  - <check_category> — <requirement_text>
+    Description: <observation>
+  ```
+  If no FAILs, leave empty or write "None". Include up to 2-3 key failures per cell; if more exist, add "... and X more" with note to see detailed section below.
 
-4. **Missing sections**: List any expected sections that were not found in the PDF report.
-5. **Severity summary**: Count of FAIL findings by severity across all sections, e.g., "Critical: 0, Major: 2, Minor: 1".
-6. **Rejection reasons** (only if Overall status is `REJECT`): For each section that has FAIL findings, list the `requirement` text of each FAIL finding, one per line, prefixed by the section name. Do not include descriptions or image references.
+**Ordering:** List all Near End pairs first (2.1/2.2 through 2.11/2.12), then Far End pairs (3.2/3.3 through 3.12/3.13), then NMS sections.
 
-### Notes
-- Always include `*Annotated:*` and `*Source:*` for FAIL findings in the Details column.
-- Keep the report structured; avoid long narrative paragraphs. The example format you provided is the target.
-- For pairs, the Details column merges both sides into a single cell; keep it concise but informative.
-- The Detailed Findings sub-sections can be a bit more verbose and can reference specific images (e.g., `Image s2.5_img0.png:`).
+#### 4. **Critical Findings & Rejection Reasons**
+(Only include this section if there are any FAIL findings)
+
+For each section pair/NMS section with FAIL findings, create a numbered sub-section using this format:
+
+```markdown
+#### <counter>. Section <number> <name> - <STATUS> (<SEVERITY>)
+
+**Requirement:** <full requirement text>
+
+**Finding:** <detailed observation with specific details>
+
+**Annotated:** <annotated_image_filename>
+**Source:** <source_image_filename>
+```
+
+Example:
+```markdown
+#### 1. Section 2.7/2.8 IF Cable - FAIL (Critical)
+
+**Requirement:** Waterproofing on connectors: the connection must be fully protected from moisture ingress. Acceptable methods include heat shrink sleeves, self-amalgamating tape, moulded rubber boots, or potting/epoxy encapsulation.
+
+**Finding:** Multiple connector terminations show incomplete waterproofing with exposed metal parts, cracked tape, or loose sealant allowing potential moisture ingress.
+
+**Annotated:** s2.8_img5_annotated.png
+**Source:** s2.8_img5.png
+```
+
+**Counter:** Use sequential numbers (1, 2, 3, ...) across all FAIL findings from the entire report.
+
+**Ordering:** List all FAIL findings from Near End sections first, then Far End, then NMS sections. Within each site, maintain section order.
+
+#### 5. **Detailed Section Analysis**
+For each pair with images, include a compliance table for reference:
+
+**Pair: Sections <before_num>/<after_num> (<Section Name>)**
+
+| Requirement | BEFORE Status | AFTER Status | Details |
+
+- BEFORE Status: use ✅ for PASS, ❌ for FAIL, ⚠️ for N/A, or blank if no finding.
+- AFTER Status: same emoji mapping.
+- Details: Combine observations from both sides. For FAIL, include `*Annotated:*` and `*Source:*` references. Keep concise.
+
+*Optional detailed observations by section can follow each table if helpful.*
+
+#### 6. **Missing Sections**
+List any expected sections that were not found in the PDF report. Example: "2.4 IDU Power (Far End) - Missing".
+
+#### 7. **Severity Summary**
+Count of FAIL findings by severity:
+- **Critical:** X
+- **Major:** X
+- **Minor:** X
+- **Total Findings:** X
+
+#### 8. **Rejection Reasons** (only if Overall Status is REJECT)
+For each section with FAIL findings, list the full requirement text one per line, prefixed by section number:
+
+```
+2.7/2.8 IF Cable: Waterproofing on connectors: the connection must be fully protected from moisture ingress...
+2.7/2.8 IF Cable: Grounding kit 0.5-1m from entry points...
+```
+
+### Format Notes
+- **Consistency:** All three elements (Results Table, Critical Findings, Severity Summary) must be present in EVERY report
+- **Critical Findings counter:** Use continuous numbering across the entire report for easy reference
+- **Annotation references:** Always include `*Annotated:*` and `*Source:*` for every FAIL finding
+- **Conciseness:** Keep the Results Table compact; reserve detailed explanations for Critical Findings section
+- **Ordering:** Maintain chronological section order throughout (Near End, then Far End, then NMS)
 
 ### Tool restrictions
 - Use only the allowed tools (analyze_image, annotate_regions, list_workspace_files, build_composite, parse_pdf, final_answer, spawn_agent).

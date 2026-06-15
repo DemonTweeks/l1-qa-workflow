@@ -1,5 +1,5 @@
 ---
-name: version2_visual_qa_before_after
+name: version2-visual-qa-before-after
 description: Compare Before and After installation images to identify issues and annotate failures with bounding boxes (v2).
 ---
 
@@ -266,24 +266,26 @@ Include `legitimacy` (object) for the Before/After check from Step 2.
 
 ### Step 5 — Brief markdown summary (final assistant message)
 
-After `final_answer` returns, send ONE short markdown message summarizing findings.
-This is for human review during testing — keep it minimal.
-
+After `final_answer` returns, send ONE short markdown message summarizing findings for the orchestrator.
 Use exactly this format:
 
 ```
-**Section:** <section>
-**Status:** <PASS|FAIL>   **Severity:** <Critical|Major|Minor|None>
-**Legitimacy:** <PASS|FAIL> — <one-line reason>
-**Not verifiable:** <count>
+### Section: <section_number_and_name>
+**Status:** <PASS|FAIL>  |  **Severity:** <Critical|Major|Minor|None>
 
-**Findings:**
-- [<PASS|FAIL>] <check> — <requirement>
-  <description>
-  *Annotated:* `<filename>`   (omit if none)
-  *Source:* `<filename>`   (omit if none)
-- [<PASS|FAIL>] <check> — <requirement>
-  <description>
+**Legitimacy Check:** <PASS|FAIL> — <one-line reason>
+**Not Verifiable Count:** <count>
+
+#### Findings Summary:
+- [<PASS|FAIL>] <check_category> — <requirement_text>
+  - Observation: <description>
+  - *Annotated:* `<filename>`  (if FAIL with annotation)
+  - *Source:* `<filename>`
 ```
 
-One bullet per finding, in the same order as in `final_answer.findings`. Stop after the list — no Summary or Recommendations.
+**Format notes:**
+- List all findings (both PASS and FAIL) in the same order as in `final_answer.findings`
+- For PASS findings, omit the Annotated/Source lines
+- For FAIL findings without annotation (not localizable), include `*Source:*` but omit `*Annotated:*`
+- Keep descriptions to one line; avoid long narratives
+- Stop after the findings list—no Summary or Recommendations section

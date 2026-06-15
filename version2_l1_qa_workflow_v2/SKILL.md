@@ -72,16 +72,19 @@ Create a single comprehensive table showing ALL sections at a glance:
 | 2.1/2.2 | IDU Installation | PASS/FAIL/N_A | Critical/Major/Minor/None | <failed_check_1><br><failed_check_2> |
 
 **Table structure:**
-- **Section**: Section number and name (e.g., "2.1/2.2 IDU Installation")
-- **Pair**: "Near End" or "Far End" (or "NMS" for non-paired sections)
-- **Status**: Overall status for this section pair (PASS/FAIL/N_A)
-- **Severity**: Highest severity among FAIL findings (Critical/Major/Minor/None)
+- **Section**: Full section pair label including numbers and name, e.g. "2.1/2.2 IDU Installation" or "2.5/2.6 IDU Grounding".
+- **Pair**: "Near End" or "Far End" (or "NMS" for non-paired sections).
+- **Status**: Overall status for this section pair (PASS/FAIL/N_A).
+- **Severity**: Highest severity among FAIL findings (Critical/Major/Minor/None).
 - **Failed Checks**: List each FAIL finding as a bullet point with format:
   ```
-  - <check_category> — <requirement_text>
+  - [<check>] <requirement_text>
     Description: <observation>
+    *Annotated:* <annotated_image_filename>
+    *Source:* <source_image_filename>
   ```
-  If no FAILs, leave empty or write "None". Include up to 2-3 key failures per cell; if more exist, add "... and X more" with note to see detailed section below.
+  If the finding comes from a checklist heading, include the heading exactly as the `check` value, for example `To Do's` or `To Don'ts`.
+  If no FAILs exist, leave the cell empty or write "None". Include up to 2-3 key failures per cell; if more exist, add "... and X more" with a note to see the detailed section below.
 
 **Ordering:** List all Near End pairs first (2.1/2.2 through 2.11/2.12), then Far End pairs (3.2/3.3 through 3.12/3.13), then NMS sections.
 
@@ -100,6 +103,8 @@ For each section pair/NMS section with FAIL findings, create a numbered sub-sect
 **Annotated:** <annotated_image_filename>
 **Source:** <source_image_filename>
 ```
+
+If a finding was generated from a checklist heading such as `To Do's` or `To Don'ts`, include that heading in the requirement or the check label so the report clearly shows which To Do or To Don't was hit.
 
 Example:
 ```markdown

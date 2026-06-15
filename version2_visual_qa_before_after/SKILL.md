@@ -240,7 +240,7 @@ Call `final_answer(...)` ONCE with the structured payload.
 
 For every check you actually performed (PASS or FAIL), include one entry in `findings`:
 
-- `check` — short label (e.g. "Cable labeling")
+- `check` — short label, ideally the checklist heading or category (e.g. "To Do's", "To Don'ts", "Cable labeling"). This is what the report will use to show which To Do or To Don't was hit.
 - `requirement` — the **full rule text** as it appeared in the task (e.g. "All visible cable ends
  must be labeled with yellow tags identifying NE and FE site IDs"). This is what we know the
  finding violates or satisfies. Always include it for both PASS and FAIL — we want to know
@@ -277,7 +277,7 @@ Use exactly this format:
 **Not Verifiable Count:** <count>
 
 #### Findings Summary:
-- [<PASS|FAIL>] <check_category> — <requirement_text>
+- [<PASS|FAIL>] <check> — <requirement_text>
   - Observation: <description>
   - *Annotated:* `<filename>`  (if FAIL with annotation)
   - *Source:* `<filename>`
@@ -285,6 +285,7 @@ Use exactly this format:
 
 **Format notes:**
 - List all findings (both PASS and FAIL) in the same order as in `final_answer.findings`
+- Use the `check` field to show the exact checklist heading such as `To Do's` or `To Don'ts` when applicable
 - For PASS findings, omit the Annotated/Source lines
 - For FAIL findings without annotation (not localizable), include `*Source:*` but omit `*Annotated:*`
 - Keep descriptions to one line; avoid long narratives

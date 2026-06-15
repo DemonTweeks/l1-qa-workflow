@@ -29,7 +29,7 @@ Spawn a sub-agent (or use an allowed tool) to validate header fields and site ID
 
 ### Step 4: Visual QA — Before/After Sections (PARALLEL)
 
-For each pair with images, spawn a sub‑agent with `skill="visual_qa_before_after"`.
+For each pair with images, spawn a sub‑agent with `skill="visual_qa_before_after_v2"`.
 
 Pass:
 - Before images list and After images list (from parse result)

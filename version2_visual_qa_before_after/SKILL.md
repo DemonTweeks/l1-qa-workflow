@@ -13,7 +13,7 @@ via the `final_answer` tool.
 
 - **Before images** (optional if `pdf_report` given): list of workspace filenames for Before photos
 - **After images** (optional if `pdf_report` given): list of workspace filenames for After photos
-- **Pdf report** (optional if Before/After lists given): path to a PDF file containing Before and After images. The agent will extract images from this PDF and classify them automatically.
+- **Pdf report** (optional if Before/After lists given): path to a PDF file containing Before and After images. The agent will extract images from the PDF and classify them automatically.
 - **Section name** (optional): name of the L1 QA v2 section to check (e.g., "IDU Installation", "IF Cable", "Header Validation"). If omitted, all sections are checked.
 - **Checks**: QA checks to perform — each check has a name and a `requirement` (the rule text)
 
@@ -265,8 +265,8 @@ Include `legitimacy` (object) for the Before/After check from Step 2.
 
 ### Step 5 — Brief markdown summary (final assistant message)
 
-After `final_answer` returns, send ONE short markdown message that mirrors the structured payload.
-This exists for human review during testing — keep it minimal, no narrative paragraphs.
+After `final_answer` returns, send ONE short markdown message summarizing findings.
+This is for human review during testing — keep it minimal.
 
 Use exactly this format:
 
@@ -276,23 +276,13 @@ Use exactly this format:
 **Legitimacy:** <PASS|FAIL> — <one-line reason>
 **Not verifiable:** <count>
 
----
-
-### 📋 Compliance Table
-
-| Category | Requirement (To Do / To Don't) | Status | Evidence / Observation |
-|----------|--------------------------------|--------|------------------------|
-
+**Findings:**
+- [<PASS|FAIL>] <check> — <requirement>
+  <description>
+  *Annotated:* `<filename>`   (omit if none)
+  *Source:* `<filename>`   (omit if none)
+- [<PASS|FAIL>] <check> — <requirement>
+  <description>
 ```
 
-Then, for each finding from `final_answer.findings` (in order), add one table row:
-
-- **Category**: the `check` value
-- **Requirement**: the `requirement` string
-- **Status**: show ✅ for `PASS`, ❌ for `FAIL`, ⚠️ for `N_A` (or blank)
-- **Evidence / Observation**:
-  - For `PASS`: "Compliant" or the `description`
-  - For `FAIL`: include `description` and on new lines `*Annotated:* <file>` and `*Source:* <file>` when present
-  - For `N_A`: "Not verifiable"
-
-Stop after the table — do not add a Summary or Recommendations section.
+One bullet per finding, in the same order as in `final_answer.findings`. Stop after the list — no Summary or Recommendations.

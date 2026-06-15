@@ -1,8 +1,59 @@
-0_header_validation.md
-2.1-2.2_idu_installation.md
-2.3-2.4_idu_power.md
-2.5-2.6_idu_grounding.md
-2.7-2.8_if_cable.md
-2.9-2.10_fe_cable.md
-2.11-2.12_mw_odu.md
-2.14-2.29_nms_sections.md
+# CHECKLIST_INDEX
+# Maps section numbers to checklist filenames (order matters for overall report)
+# Format: <section_code> <filename>
+# Example: 2.1 2.1-2.2_idu_installation.md
+
+2.1 2.1-2.2_idu_installation.md
+2.2 2.1-2.2_idu_installation.md
+2.3 2.3-2.4_idu_power.md
+2.4 2.3-2.4_idu_power.md
+2.5 2.5-2.6_idu_grounding.md
+2.6 2.5-2.6_idu_grounding.md
+2.7 2.7-2.8_if_cable.md
+2.8 2.7-2.8_if_cable.md
+2.9 2.9-2.10_fe_cable.md
+2.10 2.9-2.10_fe_cable.md
+2.11 2.11-2.12_mw_odu.md
+2.12 2.11-2.12_mw_odu.md
+2.13 2.13_odu_grounding.md
+2.14 nms_topology.md
+2.15 nms_slot_layout.md
+2.16 nms_general_alarm.md
+2.17 nms_link_budget.md
+2.18 nms_rsl.md
+2.19 nms_link_performance.md
+2.20 nms_link_performance.md
+2.21 nms_link_performance.md
+2.22 nms_link_performance.md
+2.23 nms_link_performance.md
+2.24 nms_link_performance.md
+2.25 nms_link_performance.md
+2.26 nms_link_performance.md
+2.29 nms_site_environment.md
+3.2 3.2-3.3_idu_installation.md
+3.3 3.2-3.3_idu_installation.md
+3.4 3.4-3.5_idu_power.md
+3.5 3.4-3.5_idu_power.md
+3.6 3.6-3.7_idu_grounding.md
+3.7 3.6-3.7_idu_grounding.md
+3.8 3.8-3.9_if_cable.md
+3.9 3.8-3.9_if_cable.md
+3.10 3.10-3.11_fe_cable.md
+3.11 3.10-3.11_fe_cable.md
+3.12 3.12-3.13_mw_odu.md
+3.13 3.12-3.13_mw_odu.md
+3.14 3.14_odu_grounding.md
+3.15 nms_topology.md
+3.16 nms_slot_layout.md
+3.17 nms_general_alarm.md
+3.18 nms_link_budget.md
+3.19 nms_rsl.md
+3.20 nms_link_performance.md
+3.21 nms_link_performance.md
+3.22 nms_link_performance.md
+3.23 nms_link_performance.md
+3.24 nms_link_performance.md
+3.25 nms_link_performance.md
+3.26 nms_link_performance.md
+3.27 nms_link_performance.md
+3.30 nms_site_environment.md

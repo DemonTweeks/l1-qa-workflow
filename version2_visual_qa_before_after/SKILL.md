@@ -63,6 +63,74 @@ except NameError:
 
 From this point on, use the `checks` list for evaluation.
 
+## Results table and proofs (new)
+
+Agents must produce a per-section results table that clearly records which "To Do" and "To Don't" items were verified (PASS) or rejected (FAIL) along with proof images and short explanations for any rejections. Use the following expectations:
+
+- Output location: `workspace/results/<section_number>_<slug>/results.md` (agent should create folders as needed).
+- Table columns: `Section | Check Type | Check (requirement) | Status | Proof Images | Explanation`
+- Proof Images: refer to workspace filenames saved under `workspace/results/<section_number>_<slug>/proofs/` or annotated images under `workspace/results/<section_number>_<slug>/annotated/`.
+- For each FAIL entry include at least one proof image and a one-line explanation describing why the check failed.
+- For PASS entries include one proof image when available; otherwise leave the Proof Images cell empty.
+
+Example Markdown table row (agent should populate these programmatically):
+
+| Section | Check Type | Check (requirement) | Status | Proof Images | Explanation |
+|---|---:|---|---:|---|---|
+| 2.7 IF Cable | To Do | Cable ends must be labeled with yellow tags | PASS | `proofs/img-002_after.jpg` |  |
+| 2.7 IF Cable | To Don't | No exposed jacket at waterproofed termination | FAIL | `annotated/img-002_fail_bbox.png` | Exposed jacket visible at connector, missing heat-shrink.
+
+Agents should also emit a JSON summary (for machine ingestion) at `workspace/results/<section_number>_<slug>/summary.json` with the following schema:
+
+{
+    "section": "2.7 IF Cable",
+    "findings": [
+        {
+            "check_type": "To Do",
+            "requirement": "Cable ends must be labeled...",
+            "status": "PASS",
+            "proof_images": ["proofs/img-002_after.jpg"],
+            "explanation": ""
+        }
+    ],
+    "not_verifiable_count": 1,
+    "status": "FAIL",
+    "severity": "Major"
+}
+
+## Annotated images section (naming & placement)
+
+When the agent produces localized FAIL findings, it MUST create annotated images and place them under:
+
+- `workspace/results/<section_number>_<slug>/annotated/`
+
+Naming conventions:
+- `<section>_<check_short>_source-<origname>_fail_<severity>.png` — e.g. `2.7_labeling_source-img-002_fail-Major.png`
+
+The agent should also create a small index file `annotated_index.md` in the annotated folder listing the image, source image, bbox coordinates and severity. Example row:
+
+`- annotated/2.7_labeling_source-img-002_fail-Major.png — source: img-002_after.jpg — bbox: [120,45,420,300] — severity: Major`
+
+## Checklist / To Do vs To Don'ts mapping
+
+Agents should map each checklist item to either `To Do` (things that must be present / done) or `To Don't` (things that must not be present). When loading the checklist from `version2_l1_qa_workflow_v2`, the agent may infer this mapping from the wording. If ambiguity exists, default to `To Do`.
+
+## Per-section workflow (recommended)
+
+1. Filter checks to the requested section (see Step 1.6).
+2. Build composites and run legitimacy check (Step 2).
+3. Extract structured data / run per-image analysis (Steps 1.5 and 3).
+4. For each check, determine PASS/FAIL/N_A. For FAIL produce annotated image and add to `annotated/` and `proofs/` as appropriate.
+5. Write `results.md`, `summary.json`, and `annotated_index.md` into `workspace/results/<section_number>_<slug>/`.
+
+## Reporting rejected parts
+
+When the agent marks a check FAIL, it must provide a one-line explanation describing why the item failed and reference the annotated image filename. If multiple reasons exist for rejection in a section, include separate findings for each.
+
+## Short examples and helper files
+
+See `results_template.md` and `annotated_images/README.md` (created alongside this skill) for ready-to-use templates the agent should populate.
+
 ### Step 0.5 — Extract images from PDF and classify (if pdf_report provided)
 
 If your task includes a `pdf_report` variable (a path to a PDF), ignore the provided `before_images` and `after_images`. Extract images from the PDF and automatically classify them as before/after:
